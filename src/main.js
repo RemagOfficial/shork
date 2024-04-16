@@ -21,7 +21,7 @@
         if (standardForm == true) {
             shorkCounter.textContent = formatInt(shorks);
         } else {
-            shorkCounter.textContent = shorks.toLocaleString();
+            shorkCounter.textContent = shorks.toLocaleString() + " Shorks";
         }
     }
 
@@ -32,6 +32,6 @@
             temp = temp / 1000;
             illion++;
         }
-        return temp + " " + illions[illion - 1];
+        return temp + " " + illions[illion - 1] + " Shorks";
         }
 })()
