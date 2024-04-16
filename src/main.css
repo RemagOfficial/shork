@@ -3,14 +3,16 @@
   src: url('assets/fonts/LcdSolid-VPzB.ttf') format('truetype');
   src: url('assets/fonts/LcdSolid-VPzB.woff2') format('woff2');
 }
-html, body, #SharkDiv {
+html, body {
     width: 100%;
     height: 100%;
     margin: 0px;
     font-family: "LCDSolid";
+    user-select: none;
+    -webkit-user-drag: none;
   }
 
-#ShopTab {
+#Shop {
     position: absolute;
     right: 0%;
     top: 15%;
@@ -18,7 +20,7 @@ html, body, #SharkDiv {
     transform-origin: top right;
 }
 
-#StatsTab {
+#Stats {
   position: absolute;
   right: 0%;
   top: 55%;
@@ -26,19 +28,42 @@ html, body, #SharkDiv {
   transform-origin: top right;
 }
 
+#ShopTab, #StatsTab {
+  -webkit-user-drag: none;
+}
+
 #Shark {
   position: absolute;
   left: 50%;
   top: 35%;
-  transform: translateX(-50%) scale(0.5);
+  transform: translateX(-50%) scale(0.7);
+  -webkit-user-drag: none;
+}
+
+#ShopText {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: rotate(-90deg) scale(7) translateY(-10%);
+  padding: 0px;
+  margin: 0px;
+}
+
+#StatsText {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: rotate(-90deg) scale(7) translateY(-10%);
+  padding: 0px;
+  margin: 0px;
 }
 
 #Shark:active:not(:hover) {
-  transform: translateX(-50%) scale(0.45);
+  transform: translateX(-50%) scale(0.65);
 }
 
 #Shark:hover:not(:active) {
-  transform: translateX(-50%) scale(0.55);
+  transform: translateX(-50%) scale(0.75);
 }
 
 #ShorksCount {
