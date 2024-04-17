@@ -4,7 +4,7 @@
     const shorkCounter = document.getElementById("ShorksCount");
     const sharkImg = document.getElementById("Shark");
     const formatting = document.getElementById("formatting");
-    const body = document.getElementsByTagName("body")[0];
+    const body = document.getElementById("Content");
     const title = document.getElementById("Title");
     const about = document.getElementById("About");
     const aboutPanel = document.getElementById("AboutDiv");
