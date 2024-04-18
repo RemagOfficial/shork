@@ -103,7 +103,7 @@
         console.log("clicked");
     }
 
-    // a function that saves the shork counter to a browser cookie when the save button is clicked
+    // a function that saves the shork counter and formatting mode to a browser cookie when the save button is clicked
     function saveGame() {
         document.cookie = "shorkCounter=" + shorks;
         document.cookie = "formattingMode=" + formattingMode;
@@ -113,12 +113,10 @@
         console.log("saved");
     }
 
-    // a function that loads the shork counter from a browser cookie when the load button is clicked
+    // a function that loads the shork counter and formatting mode from a browser cookie when the load button is clicked
     function loadGame() {
-        var cookie = document.cookie;
-        if (cookie != "") {
-            shorks = parseInt(cookie.split("=")[1]);
-        }
+        shorks = parseInt(document.cookie.split("=")[1]);
+        formattingMode = parseInt(document.cookie.split("=")[2]);
         hook = true;
         // tell the user that their save has been loaded
         alert("Your save has been loaded!");
