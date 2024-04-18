@@ -1,5 +1,6 @@
 (function() {
     let shorks = 0;
+    let autoShorks = 0;
 
     const shorkCounter = document.getElementById("ShorksCount");
     const sharkImg = document.getElementById("Shark");
@@ -73,6 +74,23 @@
     function addShorks() {
         shorks += 1;
     }
+
+    function addShorksAuto() {
+        // add shorks dependant on number of auto shorks, if the number of auto shorks is over 10 add them to the shork counter over a few seconds
+        if (autoShorks > 10) {
+            for (var i = 0; i < autoShorks; i++) {
+                setTimeout(function() {
+                    addShorks();
+                }, i * 10);
+            }
+        }
+        else {
+            for (var i = 0; i < autoShorks; i++) {
+                addShorks();
+            }
+        }
+    };
+
 
     function updateUI() {
         if (formattingMode == 0) {
@@ -155,7 +173,7 @@
     // a function that clears all cookies when the clear button is clicked
     function clearCookies() {
         // warn the user that their cookies will be cleared and cancel the clear if they don't want to continue
-        if (!confirm("Are you sure you want to clear your cookies? This action cannot be undone.")) {
+        if (!confirm("Are you sure you want to clear your save data? This action cannot be undone.")) {
             return;
         }
         // clear all cookies
@@ -167,7 +185,7 @@
             location.reload();
         }
         // tell the user that their cookies have been cleared
-        alert("Your cookies have been cleared!");
+        alert("Your save data has been cleared!");
         console.log("cleared");
     }
 
@@ -176,6 +194,7 @@
 
     const everyTick = () => {
         updateUI();
+        addShorksAuto();
     }
 
     setInterval(everyTick, 50); // Every 50ms = 1/20th of a second
