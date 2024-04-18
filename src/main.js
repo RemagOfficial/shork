@@ -126,8 +126,16 @@
 
     // a function that loads the shork counter and formatting mode from a browser cookie when the load button is clicked
     function loadGame() {
-        shorks = parseInt(document.cookie.split("=")[2]);
-        formattingMode = parseInt(document.cookie.split("=")[1]);
+        // get the shork counter and formatting mode from the cookie using their names
+        var cookies = document.cookie.split("; ");
+        for (var i = 0; i < cookies.length; i++) {
+            var cookie = cookies[i].split("=");
+            if (cookie[0] == "shorkCounter") {
+                shorks = parseInt(cookie[1]);
+            } else if (cookie[0] == "formattingMode") {
+                formattingMode = parseInt(cookie[1]);
+            }
+        }
         updateUI();
         // set hook to true so that the game will not want the user to save before they close the page
         hook = true;
