@@ -11,6 +11,7 @@
     const close = document.getElementById("Close");
     const save = document.getElementById("Save");
     const load = document.getElementById("Load");
+    const clear = document.getElementById("Clear");
 
     let hook = true;
 
@@ -33,6 +34,10 @@
     formatting.addEventListener("click", updateFormatting);
     about.addEventListener("click", openAbout);
     close.addEventListener("click", closeAbout);
+    save.addEventListener("click", saveGame);
+    load.addEventListener("click", loadGame);
+    clear.addEventListener("click", clearCookies);
+
 
     /**
      * Updates the formatting mode of the application.
@@ -97,6 +102,41 @@
     function logger() {
         console.log("clicked");
     }
+
+    // a function that saves the shork counter to a browser cookie when the save button is clicked
+    function saveGame() {
+        document.cookie = "shorkCounter=" + shorks;
+        document.cookie = "formattingMode=" + formattingMode;
+        hook = false;
+        // tell the user that their save has been saved
+        alert("Your save has been saved!");
+        console.log("saved");
+    }
+
+    // a function that loads the shork counter from a browser cookie when the load button is clicked
+    function loadGame() {
+        var cookie = document.cookie;
+        if (cookie != "") {
+            shorks = parseInt(cookie.split("=")[1]);
+        }
+        hook = true;
+        // tell the user that their save has been loaded
+        alert("Your save has been loaded!");
+        console.log("loaded");
+    }
+
+    // a function that clears all cookies when the clear button is clicked
+    function clearCookies() {
+        // warn the user that their cookies will be cleared and cancel the clear if they don't want to continue
+        if (!confirm("Are you sure you want to clear your cookies? This action cannot be undone.")) {
+            return;
+        }
+        // clear all cookies
+        document.cookie = "";
+        // tell the user that their cookies have been cleared
+        console.log("cleared");
+    }
+
     const everyTick = () => {
         incrementShorkCounter();
     }
