@@ -12,10 +12,13 @@
     const save = document.getElementById("Save");
     const load = document.getElementById("Load");
     const clear = document.getElementById("Clear");
+    const saveTimer = document.getElementById("SaveTimer");
 
     let hook = true;
 
     let formattingMode = 0;
+    let lastSave = Date.now();
+    let saveInterval = 30;
 
     var illions = ["", "thousand", "million", "billion", "trillion", "quadrillion", "quintillion", "sextillion", "septillion", "octillion", "nonillion", "decillion", "undecillion", "duodecillion", "tredecillion", "quattuordecillion", "quindecillion", "sexdecillion", "septendecillion", "octodecillion", "novemdecillion", "vigintillion", "unvigintillion", "duovigintillion", "trevigintillion", "quattuorvigintillion", "quinvigintillion", "sexvigintillion", "septenvigintillion", "octovigintillion", "nonvigintillion", "trigintillion", "untrigintillion", "duotrigintillion", "tretrigintillion", "quattuortrigintillion", "quintrigintillion", "sextrigintillion", "septentrigintillion", "octotrigintillion", "novemtrigintillion", "quadragintillion", "unquadragintillion", "duoquadragintillion", "trequadragintillion", "quattuorquadragintillion", "quinquadragintillion", "sexquadragintillion", "septenquadragintillion", "octoquadragintillion", "novemquadragintillion", "quinquagintillion", "unquinquagintillion", "duoquinquagintillion", "trequinquagintillion"];
     var illionsAbbr = ["", "k", "M", "B", "T", "Qa", "Qi", "Sx", "Sp", "O", "N", "D", "Ud", "DuD", "TrD", "QaD", "QiD", "SxD", "SpD", "OD", "ND", "V", "UnV", "DuV", "TrV", "QaV", "QiV", "SxV", "SpV", "OV", "NV", "Tg", "UnT", "DuT", "TrT", "QaT", "QiT", "SxT", "SpT", "OT", "NT", "Dg", "UnD", "DuDg", "TrDg", "QaDg", "QiDg", "SxDg", "SpDg", "ODg", "NDg", "Sg", "UnSg", "DuSg", "TrSg", "QaSg", "QiSg", "SxSg", "SpSg", "OSg"];
@@ -35,13 +38,11 @@
     about.addEventListener("click", openAbout);
     close.addEventListener("click", closeAbout);
 
-    // Add event listeners to load the game on page load and when the load button is clicked
+    // Add event listeners to load the game save when the load button is clicked
     load.addEventListener("click", loadGame);
-    // window.addEventListener("load", loadGame);
 
-    // Add event listeners to save the game when the page is reloaded or closed and when the save button is clicked
+    // Add event listeners to save the game when the save button is clicked
     save.addEventListener("click", saveGame);
-    // window.addEventListener("beforeunload", saveGame);
 
     // Add event listeners to clear the cookies
     clear.addEventListener("click", clearCookies);
@@ -74,6 +75,8 @@
         } else if (formattingMode == 3) {
             shorkCounter.textContent = shorks.toExponential(2) + " Shorks";
         }
+        // update the save timer
+        saveTimer.textContent = "Next save in " + (saveInterval - (Date.now() - lastSave) / 1000).toFixed(0) + " seconds.";
     }
 
     function formatInt(number) {
@@ -116,6 +119,7 @@
         document.cookie = "shorkCounter=" + shorks;
         document.cookie = "formattingMode=" + formattingMode;
         hook = false;
+        lastSave = Date.now();
         // tell the user that their save has been saved
         console.log("saved");
     }
@@ -149,6 +153,9 @@
         alert("Your cookies have been cleared!");
         console.log("cleared");
     }
+
+    // a function that calls the save function every 60 seconds
+    setInterval(saveGame, saveInterval * 1000); // multiply by 1000 to convert seconds to milliseconds
 
     const everyTick = () => {
         updateUI();

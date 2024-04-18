@@ -153,3 +153,8 @@ html, body, #Content {
   font-family: "LCDSolid";
   font-size: xx-large;
 }
+
+#SaveTimer {
+  position: absolute;
+  bottom: 0%;
+}
