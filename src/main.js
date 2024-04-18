@@ -41,7 +41,7 @@
 
     // Add event listeners to save the game when the page is reloaded or closed and when the save button is clicked
     save.addEventListener("click", saveGame);
-    window.addEventListener("beforeunload", saveGame);
+    // window.addEventListener("beforeunload", saveGame);
 
     // Add event listeners to clear the cookies
     clear.addEventListener("click", clearCookies);
