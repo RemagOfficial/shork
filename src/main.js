@@ -134,14 +134,12 @@
         for (var i = 0; i < cookies.length; i++) {
             // set all cookies to an empty string
             document.cookie = cookies[i].split("=")[0] + "=";
-            // set shork counter to 0
-            shorks = 0;
-            // set formatting mode to 0
-            formattingMode = 0;
-            // tell the user that their cookies have been cleared
-            alert("Your cookies have been cleared!");
-            console.log("cleared");
+            // refresh the page to clear progress
+            location.reload();
         }
+        // tell the user that their cookies have been cleared
+        alert("Your cookies have been cleared!");
+        console.log("cleared");
     }
 
     const everyTick = () => {
