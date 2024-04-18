@@ -182,6 +182,7 @@
             // set all cookies to an empty string
             document.cookie = cookies[i].split("=")[0] + "=";
             // refresh the page to clear progress
+            hook = false;
             location.reload();
         }
         // tell the user that their cookies have been cleared
