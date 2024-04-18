@@ -130,7 +130,11 @@
             return;
         }
         // clear all cookies
-        document.cookie = "";
+        var cookies = document.cookie.split(";");
+        for (var i = 0; i < cookies.length; i++) {
+            // set all cookies to an empty string
+            document.cookie = cookies[i].split("=")[0] + "=";
+        }
         // tell the user that their cookies have been cleared
         console.log("cleared");
     }
