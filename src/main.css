@@ -131,7 +131,7 @@ html, body, #Content {
   position: absolute;
   left: 50%;
   top: 50%;
-  transform: rotate(-90deg) scale(7) translateY(-10%);
+  transform: rotate(-90deg) scale(7) translateY(-26%);
   padding: 0px;
   margin: 0px;
 }
