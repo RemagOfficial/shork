@@ -34,8 +34,14 @@
     formatting.addEventListener("click", updateFormatting);
     about.addEventListener("click", openAbout);
     close.addEventListener("click", closeAbout);
-    save.addEventListener("click", saveGame);
-    load.addEventListener("click", loadGame);
+
+    // Add event listeners to load the game on page load
+    window.addEventListener("load", loadGame);
+
+    // Add event listeners to save the game on page unload
+    window.addEventListener("unload", saveGame);
+
+    // Add event listeners to clear the cookies
     clear.addEventListener("click", clearCookies);
 
 
@@ -56,7 +62,7 @@
         shorks += 1;
     }
 
-    function incrementShorkCounter() {
+    function updateUI() {
         if (formattingMode == 0) {
             shorkCounter.textContent = shorks.toLocaleString() + " Shorks";
         } else if (formattingMode == 1) {
@@ -143,7 +149,7 @@
     }
 
     const everyTick = () => {
-        incrementShorkCounter();
+        updateUI();
     }
 
     setInterval(everyTick, 50); // Every 50ms = 1/20th of a second
