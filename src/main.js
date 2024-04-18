@@ -37,7 +37,7 @@
 
     // Add event listeners to load the game on page load and when the load button is clicked
     load.addEventListener("click", loadGame);
-    window.addEventListener("load", loadGame);
+    // window.addEventListener("load", loadGame);
 
     // Add event listeners to save the game when the page is reloaded or closed and when the save button is clicked
     save.addEventListener("click", saveGame);
