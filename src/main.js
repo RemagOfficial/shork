@@ -115,7 +115,6 @@
         document.cookie = "formattingMode=" + formattingMode;
         hook = false;
         // tell the user that their save has been saved
-        alert("Your save has been saved!");
         console.log("saved");
     }
 
@@ -125,7 +124,6 @@
         formattingMode = parseInt(document.cookie.split("=")[2]);
         hook = true;
         // tell the user that their save has been loaded
-        alert("Your save has been loaded!");
         console.log("loaded");
     }
 
