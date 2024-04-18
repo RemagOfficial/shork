@@ -110,6 +110,10 @@ html, body, #Content {
   -webkit-user-drag: none;
 }
 
+#Shop:hover:not(:active), #Stats:hover:not(:active) {
+  cursor: pointer;
+}
+
 #Shark {
   position: absolute;
   left: 50%;

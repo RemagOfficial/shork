@@ -24,6 +24,15 @@
     var illionsAbbr = ["", "k", "M", "B", "T", "Qa", "Qi", "Sx", "Sp", "O", "N", "D", "Ud", "DuD", "TrD", "QaD", "QiD", "SxD", "SpD", "OD", "ND", "V", "UnV", "DuV", "TrV", "QaV", "QiV", "SxV", "SpV", "OV", "NV", "Tg", "UnT", "DuT", "TrT", "QaT", "QiT", "SxT", "SpT", "OT", "NT", "Dg", "UnD", "DuDg", "TrDg", "QaDg", "QiDg", "SxDg", "SpDg", "ODg", "NDg", "Sg", "UnSg", "DuSg", "TrSg", "QaSg", "QiSg", "SxSg", "SpSg", "OSg"];
 
 
+
+    // funny message in the console when the game is loaded to confuse the player if they open the console
+    document.addEventListener('DOMContentLoaded', function() {
+
+        console.log('Shork Clicker loaded!');
+        console.log('Why are you looking at the console?');
+        console.log('Theres nothing to see here!');
+    });
+
     function handleBeforeUnload(event) {
         if (hook) {
             event.preventDefault();
