@@ -38,8 +38,8 @@
     // Add event listeners to load the game on page load
     window.addEventListener("load", loadGame);
 
-    // Add event listeners to save the game on page unload
-    window.addEventListener("unload", saveGame);
+    // Add event listeners to save the game when the page is reloaded or closed
+    window.addEventListener("beforeunload", saveGame);
 
     // Add event listeners to clear the cookies
     clear.addEventListener("click", clearCookies);
