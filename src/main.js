@@ -124,6 +124,8 @@
     function loadGame() {
         shorks = parseInt(document.cookie.split("=")[1]);
         formattingMode = parseInt(document.cookie.split("=")[2]);
+        updateUI();
+        // set hook to true so that the game will not want the user to save before they close the page
         hook = true;
         // tell the user that their save has been loaded
         console.log("loaded");
