@@ -42,6 +42,10 @@ html, body, #Content {
   cursor: pointer;
 }
 
+#Clear {
+  background-color: #f74f4f;
+}
+
 #AboutDiv {
   border: 5px;
   border-style: solid;
