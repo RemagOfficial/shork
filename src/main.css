@@ -65,6 +65,33 @@ html, body, #Content {
   z-index: 102;
 }
 
+#SettingsDivText {
+  font-size: xx-large;
+  text-align: center;
+  vertical-align: middle;
+  line-height: 40px;
+}
+
+#formatting {
+  transform: scale(0.2) translateX(-195%) translateY(-195%);
+  -webkit-user-drag: none;
+}
+
+#SettingsFormattingText {
+  font-size: smaller;
+  text-align: center;
+  vertical-align: middle;
+  line-height: 32px;
+  width: 256px;
+  height: 32px;
+  padding: 0%;
+  margin: 0%;
+  position: absolute;
+  top: 4%;
+  left: 0.9%;
+
+}
+
 #subdivShop:active:not(:hover) {
   cursor: pointer;
 }

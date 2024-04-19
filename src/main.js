@@ -4,7 +4,7 @@
 
     const shorkCounter = document.getElementById("ShorksCount");
     const sharkImg = document.getElementById("Shark");
-    const formatting = document.getElementById("formatting");
+    const formatting = document.getElementById("SettingsFormatting");
     const body = document.getElementById("Content");
     // const title = document.getElementById("Title");
     const about = document.getElementById("About");
@@ -22,6 +22,7 @@
     const shopPrestigeUpgrades = document.getElementById("ShopPrestigeUpgrades");
     const settings = document.getElementById("Settings");
     const settingsPanel = document.getElementById("SettingsDiv");
+    const settingsFormattingText = document.getElementById("SettingsFormattingText");
 
     let hook = true;
 
@@ -30,6 +31,8 @@
     let saveInterval = 30;
     let shopTabOpen = 1;
     let PrestigeShopUnlocked = false;
+    let shopPanelOpen = false;
+    let settingsPanelOpen = false;
 
     var illions = ["", "thousand", "million", "billion", "trillion", "quadrillion", "quintillion", "sextillion", "septillion", "octillion", "nonillion", "decillion", "undecillion", "duodecillion", "tredecillion", "quattuordecillion", "quindecillion", "sexdecillion", "septendecillion", "octodecillion", "novemdecillion", "vigintillion", "unvigintillion", "duovigintillion", "trevigintillion", "quattuorvigintillion", "quinvigintillion", "sexvigintillion", "septenvigintillion", "octovigintillion", "nonvigintillion", "trigintillion", "untrigintillion", "duotrigintillion", "tretrigintillion", "quattuortrigintillion", "quintrigintillion", "sextrigintillion", "septentrigintillion", "octotrigintillion", "novemtrigintillion", "quadragintillion", "unquadragintillion", "duoquadragintillion", "trequadragintillion", "quattuorquadragintillion", "quinquadragintillion", "sexquadragintillion", "septenquadragintillion", "octoquadragintillion", "novemquadragintillion", "quinquagintillion", "unquinquagintillion", "duoquinquagintillion", "trequinquagintillion"];
     var illionsAbbr = ["", "k", "M", "B", "T", "Qa", "Qi", "Sx", "Sp", "O", "N", "D", "Ud", "DuD", "TrD", "QaD", "QiD", "SxD", "SpD", "OD", "ND", "V", "UnV", "DuV", "TrV", "QaV", "QiV", "SxV", "SpV", "OV", "NV", "Tg", "UnT", "DuT", "TrT", "QaT", "QiT", "SxT", "SpT", "OT", "NT", "Dg", "UnD", "DuDg", "TrDg", "QaDg", "QiDg", "SxDg", "SpDg", "ODg", "NDg", "Sg", "UnSg", "DuSg", "TrSg", "QaSg", "QiSg", "SxSg", "SpSg", "OSg"];
@@ -110,12 +113,16 @@
     function updateUI() {
         if (formattingMode == 0) {
             shorkCounter.textContent = shorks.toLocaleString() + " Shorks";
+            settingsFormattingText.textContent = "Normal";
         } else if (formattingMode == 1) {
             shorkCounter.textContent = formatInt(shorks);
+            settingsFormattingText.textContent = "Standard Form";
         } else if (formattingMode == 2) {
             shorkCounter.textContent = formatIntAbbr(shorks);
+            settingsFormattingText.textContent = "Abbreviated Standard Form";
         } else if (formattingMode == 3) {
             shorkCounter.textContent = shorks.toExponential(2) + " Shorks";
+            settingsFormattingText.textContent = "Scientific";
         }
         // update the save timer
         saveTimer.textContent = "Next save in " + (saveInterval - (Date.now() - lastSave) / 1000).toFixed(0) + " seconds.";
@@ -207,19 +214,21 @@
 
     // a function that moves the shop button over to the left side of the screen when the shop button is clicked and moves it back to the right side of the screen when the shop button is clicked again and makes the shop panel visible
     function openShop() {
-        if (shopPanel.style.visibility == "hidden") {
+        if (shopPanel.style.visibility == "hidden" && !settingsPanelOpen) {
             shopPanel.style.visibility = "visible";
             shopNormalUpgrades.style.visibility = "visible";
             shop.style.right = "90%";
+            shopPanelOpen = true;
         } else {
             shopPanel.style.visibility = "hidden";
             shopNormalUpgrades.style.visibility = "hidden";
             shopPrestigeUpgrades.style.visibility = "hidden";
             shop.style.right = "0%";
+            shopPanelOpen = false;
         }
     }
 
-    // a function that sets a variable to 1 when the ShopNormal div is clicked only if the variable isnt already set to 1 and makes the ShopNormalUpgrades div visible and the ShopPrestigeUpgrades div invisible
+    // a function that sets a variable to 1 when the ShopNormal div is clicked only if the variable isn't already set to 1 and makes the ShopNormalUpgrades div visible and the ShopPrestigeUpgrades div invisible
     function openShopNormal() {
         if (shopTabOpen != 1) {
             shopTabOpen = 1;
@@ -231,7 +240,7 @@
         }
     }
 
-    // a function that sets a variable to 2 when the ShopPrestige div is clicked only if the variable isnt already set to 2 and makes the ShopPrestigeUpgrades div visible and the ShopNormalUpgrades div invisible only if Prestige is unlocked
+    // a function that sets a variable to 2 when the ShopPrestige div is clicked only if the variable isn't already set to 2 and makes the ShopPrestigeUpgrades div visible and the ShopNormalUpgrades div invisible only if Prestige is unlocked
     function openShopPrestige() {
         if (PrestigeShopUnlocked) {
             if (shopTabOpen != 2) {
@@ -249,12 +258,14 @@
 
     // a function that moves the settings button over to the left side of the screen when the settings button is clicked and moves it back to the right side of the screen when the settings button is clicked again and makes the settings panel visible
     function openSettings() {
-        if (settingsPanel.style.visibility == "hidden") {
+        if (settingsPanel.style.visibility == "hidden" && !shopPanelOpen) {
             settingsPanel.style.visibility = "visible";
             settings.style.right = "90%";
+            settingsPanelOpen = true;
         } else {
             settingsPanel.style.visibility = "hidden";
             settings.style.right = "0%";
+            settingsPanelOpen = false;
         }
     }
 
