@@ -21,6 +21,58 @@ html, body, #Content {
   display: flex;
 }
 
+#ShopNavBar {
+  background-color: #b06a3b;
+  border: 1px;
+  border-style: solid;
+  border-color: #b06a3b;
+  display: flex;
+}
+
+#subdivShop {
+  display: inline-block;
+  width: 50%;
+  height: 40px;
+  padding: 0%;
+  background-color: #b67f5a;
+  border: 1px;
+  border-style: solid;
+  border-color: #b06a3b;
+  text-align: center;
+}
+
+#ShopNormalText {
+  vertical-align: middle;
+  line-height: 40px;
+}
+
+#ShopPrestigeText {
+  vertical-align: middle;
+  line-height: 40px;
+}
+
+#ShopNormalUpgrades {
+  position: absolute;
+  top: 50px;
+  left: 10px;
+  z-index: 101;
+}
+
+#ShopPrestigeUpgrades {
+  position: absolute;
+  top: 50px;
+  left: 10px;
+  z-index: 102;
+}
+
+#subdivShop:active:not(:hover) {
+  cursor: pointer;
+}
+
+#subdivShop:hover:not(:active) {
+  cursor: pointer;
+}
+
 #subdiv {
   display: inline-block;
   width: 10%;
@@ -96,22 +148,38 @@ html, body, #Content {
     top: 15%;
     transform: scale(0.4);
     transform-origin: top right;
+    z-index: 100;
 }
 
-#Stats {
+#Settings {
   position: absolute;
   right: 0%;
   top: 55%;
   transform: scale(0.4);
   transform-origin: top right;
+  z-index: 100;
 }
 
-#ShopTab, #StatsTab {
+#ShopTab, #SettingsTab {
   -webkit-user-drag: none;
 }
 
-#Shop:hover:not(:active), #Stats:hover:not(:active) {
+#Shop:hover:not(:active), #Settings:hover:not(:active) {
   cursor: pointer;
+}
+
+#ShopDiv, #SettingsDiv {
+  visibility: hidden;
+  position: absolute;
+  left: 10%;
+  top: 10%;
+  width: 80%;
+  height: 80%;
+  z-index: 100;
+  background-color: #b67f5a;
+  border: 5px;
+  border-style: solid;
+  border-color: #b06a3b;
 }
 
 #Shark {
@@ -131,7 +199,7 @@ html, body, #Content {
   margin: 0px;
 }
 
-#StatsText {
+#SettingsText {
   position: absolute;
   left: 50%;
   top: 50%;

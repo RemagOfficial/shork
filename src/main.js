@@ -6,7 +6,7 @@
     const sharkImg = document.getElementById("Shark");
     const formatting = document.getElementById("formatting");
     const body = document.getElementById("Content");
-    const title = document.getElementById("Title");
+    // const title = document.getElementById("Title");
     const about = document.getElementById("About");
     const aboutPanel = document.getElementById("AboutDiv");
     const close = document.getElementById("Close");
@@ -14,12 +14,22 @@
     const load = document.getElementById("Load");
     const clear = document.getElementById("Clear");
     const saveTimer = document.getElementById("SaveTimer");
+    const shop = document.getElementById("Shop");
+    const shopPanel = document.getElementById("ShopDiv");
+    const shopNormal = document.getElementById("ShopNormal");
+    const shopPrestige = document.getElementById("ShopPrestige");
+    const shopNormalUpgrades = document.getElementById("ShopNormalUpgrades");
+    const shopPrestigeUpgrades = document.getElementById("ShopPrestigeUpgrades");
+    const settings = document.getElementById("Settings");
+    const settingsPanel = document.getElementById("SettingsDiv");
 
     let hook = true;
 
     let formattingMode = 0;
     let lastSave = Date.now();
     let saveInterval = 30;
+    let shopTabOpen = 1;
+    let PrestigeShopUnlocked = false;
 
     var illions = ["", "thousand", "million", "billion", "trillion", "quadrillion", "quintillion", "sextillion", "septillion", "octillion", "nonillion", "decillion", "undecillion", "duodecillion", "tredecillion", "quattuordecillion", "quindecillion", "sexdecillion", "septendecillion", "octodecillion", "novemdecillion", "vigintillion", "unvigintillion", "duovigintillion", "trevigintillion", "quattuorvigintillion", "quinvigintillion", "sexvigintillion", "septenvigintillion", "octovigintillion", "nonvigintillion", "trigintillion", "untrigintillion", "duotrigintillion", "tretrigintillion", "quattuortrigintillion", "quintrigintillion", "sextrigintillion", "septentrigintillion", "octotrigintillion", "novemtrigintillion", "quadragintillion", "unquadragintillion", "duoquadragintillion", "trequadragintillion", "quattuorquadragintillion", "quinquadragintillion", "sexquadragintillion", "septenquadragintillion", "octoquadragintillion", "novemquadragintillion", "quinquagintillion", "unquinquagintillion", "duoquinquagintillion", "trequinquagintillion"];
     var illionsAbbr = ["", "k", "M", "B", "T", "Qa", "Qi", "Sx", "Sp", "O", "N", "D", "Ud", "DuD", "TrD", "QaD", "QiD", "SxD", "SpD", "OD", "ND", "V", "UnV", "DuV", "TrV", "QaV", "QiV", "SxV", "SpV", "OV", "NV", "Tg", "UnT", "DuT", "TrT", "QaT", "QiT", "SxT", "SpT", "OT", "NT", "Dg", "UnD", "DuDg", "TrDg", "QaDg", "QiDg", "SxDg", "SpDg", "ODg", "NDg", "Sg", "UnSg", "DuSg", "TrSg", "QaSg", "QiSg", "SxSg", "SpSg", "OSg"];
@@ -47,6 +57,11 @@
     formatting.addEventListener("click", updateFormatting);
     about.addEventListener("click", openAbout);
     close.addEventListener("click", closeAbout);
+    shop.addEventListener("click", openShop);
+    settings.addEventListener("click", openSettings);
+    shopNormal.addEventListener("click", openShopNormal);
+    shopPrestige.addEventListener("click", openShopPrestige);
+
 
     // Add event listeners to load the game save when the load button is clicked
     load.addEventListener("click", loadGame);
@@ -188,6 +203,59 @@
         // tell the user that their cookies have been cleared
         alert("Your save data has been cleared!");
         console.log("cleared");
+    }
+
+    // a function that moves the shop button over to the left side of the screen when the shop button is clicked and moves it back to the right side of the screen when the shop button is clicked again and makes the shop panel visible
+    function openShop() {
+        if (shopPanel.style.visibility == "hidden") {
+            shopPanel.style.visibility = "visible";
+            shopNormalUpgrades.style.visibility = "visible";
+            shop.style.right = "90%";
+        } else {
+            shopPanel.style.visibility = "hidden";
+            shopNormalUpgrades.style.visibility = "hidden";
+            shopPrestigeUpgrades.style.visibility = "hidden";
+            shop.style.right = "0%";
+        }
+    }
+
+    // a function that sets a variable to 1 when the ShopNormal div is clicked only if the variable isnt already set to 1 and makes the ShopNormalUpgrades div visible and the ShopPrestigeUpgrades div invisible
+    function openShopNormal() {
+        if (shopTabOpen != 1) {
+            shopTabOpen = 1;
+            shopNormalUpgrades.style.visibility = "visible";
+            shopPrestigeUpgrades.style.visibility = "hidden";
+            if (shopPanel.style.visibility == "hidden") {
+                shopNormalUpgrades.style.visibility = "hidden";
+            }
+        }
+    }
+
+    // a function that sets a variable to 2 when the ShopPrestige div is clicked only if the variable isnt already set to 2 and makes the ShopPrestigeUpgrades div visible and the ShopNormalUpgrades div invisible only if Prestige is unlocked
+    function openShopPrestige() {
+        if (PrestigeShopUnlocked) {
+            if (shopTabOpen != 2) {
+                shopTabOpen = 2;
+                shopPrestigeUpgrades.style.visibility = "visible";
+                shopNormalUpgrades.style.visibility = "hidden";
+                if (shopPanel.style.visibility == "hidden") {
+                    shopPrestigeUpgrades.style.visibility = "hidden";
+                }
+            }
+        } else {
+            alert("This tab is not yet unlocked!");
+        }
+    }
+
+    // a function that moves the settings button over to the left side of the screen when the settings button is clicked and moves it back to the right side of the screen when the settings button is clicked again and makes the settings panel visible
+    function openSettings() {
+        if (settingsPanel.style.visibility == "hidden") {
+            settingsPanel.style.visibility = "visible";
+            settings.style.right = "90%";
+        } else {
+            settingsPanel.style.visibility = "hidden";
+            settings.style.right = "0%";
+        }
     }
 
     // a function that calls the save function every 60 seconds
