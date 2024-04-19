@@ -151,6 +151,7 @@
     // a function that opens the about page by dimming the background and making the about panel div visible
     function openAbout() {
         body.style.backgroundColor = "rgba(0, 0, 0, 0.5)";
+        // make the about panel div visible
         aboutPanel.style.visibility = "visible";
     }
 

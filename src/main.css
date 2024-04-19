@@ -139,11 +139,15 @@ html, body, #Content {
   visibility: hidden;
 }
 
-#AboutText {
+#AboutTitle {
   transform: translateY(-500%);
   font-size: xx-large;
   text-align: center;
   visibility: inherit;
+}
+
+#AboutText {
+  text-align: center;
 }
 
 #Close {
@@ -162,11 +166,6 @@ html, body, #Content {
 
 #Close:active:not(:hover) {
   transform: scale(0.15) translateX(-100%) translateY(-100%);
-}
-
-#AboutText2 {
-  transform: translateY(-500%);
-  text-align: center;
 }
 
 #Shop {
