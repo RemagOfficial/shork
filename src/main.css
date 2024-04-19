@@ -73,8 +73,22 @@ html, body, #Content {
 }
 
 #formatting {
-  transform: scale(0.2) translateX(-195%) translateY(-195%);
+  transform: scale(0.2) translateX(-195%) translateY(-90%);
   -webkit-user-drag: none;
+}
+
+#SettingsFormatting {
+  height: 150px;
+  border-top: 2px solid #b06a3b;
+  border-bottom: 2px solid #b06a3b;
+}
+
+#SettingsFormattingModeText {
+  width: 256px;
+  text-align: center;
+  position: absolute;
+  top: 6.3%;
+  left: 0.9%;
 }
 
 #SettingsFormattingText {
@@ -87,9 +101,12 @@ html, body, #Content {
   padding: 0%;
   margin: 0%;
   position: absolute;
-  top: 4%;
+  top: 12.3%;
   left: 0.9%;
+}
 
+#SettingsFormattingTitle {
+  text-align: center;
 }
 
 #subdivShop:active:not(:hover) {
@@ -206,6 +223,8 @@ html, body, #Content {
   border: 5px;
   border-style: solid;
   border-color: #b06a3b;
+  overflow-y: scroll;
+  scrollbar-width: none;
 }
 
 #Shark {
