@@ -151,6 +151,7 @@ html, body, #Content {
 }
 
 #Clear {
+  height: 100%;
   background-color: #f74f4f;
 }
 
