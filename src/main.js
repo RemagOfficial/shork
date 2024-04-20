@@ -221,7 +221,7 @@
     // a function that clears all cookies when the clear button is clicked
     function clearCookies() {
         // warn the user that their cookies will be cleared and cancel the clear if they don't want to continue
-        if (!confirm("Are you sure you want to clear your save data? This action cannot be undone.")) {
+        if (!confirm("Are you sure you want to clear your save data? This action cannot be undone!!!!")) {
             return;
         }
         // clear all cookies
