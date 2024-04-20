@@ -72,9 +72,23 @@ html, body, #Content {
   line-height: 40px;
 }
 
-#formatting {
-  transform: scale(0.2) translateX(-195%) translateY(-90%);
+#Formatting {
+  position: absolute;
+  top: 11%;
+  left: 0.9%;
+  height: 32px;
+  width: 256px;
+  border: #b06a3b 4px solid;
+  background-color: #b67f5a;
   -webkit-user-drag: none;
+}
+
+#Formatting:active:not(:hover) {
+  cursor: pointer;
+}
+
+#Formatting:hover:not(:active) {
+  cursor: pointer;
 }
 
 #SettingsFormatting {
@@ -84,7 +98,7 @@ html, body, #Content {
 }
 
 #SettingsFormattingModeText {
-  width: 256px;
+  width: 264px;
   text-align: center;
   position: absolute;
   top: 6.3%;
@@ -101,8 +115,6 @@ html, body, #Content {
   padding: 0%;
   margin: 0%;
   position: absolute;
-  top: 12.3%;
-  left: 0.9%;
 }
 
 #SettingsFormattingTitle {

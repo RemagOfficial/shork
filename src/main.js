@@ -29,6 +29,7 @@
     let formattingMode = 0;
     let lastSave = Date.now();
     let saveInterval = 30;
+    let loadInterval = 5;
     let shopTabOpen = 1;
     let PrestigeShopUnlocked = false;
     let shopPanelOpen = false;
@@ -45,6 +46,9 @@
         console.log('Shork Clicker loaded!');
         console.log('Why are you looking at the console?');
         console.log('Theres nothing to see here!');
+        // wait the load interval then call the load game function
+        setTimeout(loadGame, loadInterval * 1000);
+
     });
 
     function handleBeforeUnload(event) {
