@@ -187,6 +187,7 @@
     function saveGame() {
         document.cookie = "shorkCounter=" + shorks;
         document.cookie = "formattingMode=" + formattingMode;
+        document.cookie = "autoclickers=" + autoclickers;
         hook = false;
         lastSave = Date.now();
         // tell the user that their save has been saved
@@ -203,6 +204,8 @@
                 shorks = parseInt(cookie[1]);
             } else if (cookie[0] == "formattingMode") {
                 formattingMode = parseInt(cookie[1]);
+            } else if (cookie[0] == "autoclickers") {
+                autoclickers = parseInt(cookie[1]);
             }
         }
         updateUI();
