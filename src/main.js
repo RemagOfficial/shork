@@ -227,8 +227,8 @@
         // clear all cookies
         var cookies = document.cookie.split(";");
         for (var i = 0; i < cookies.length; i++) {
-            // set all cookies to an empty string
-            document.cookie = cookies[i].split("=")[0] + "=";
+            // set all cookies to 0
+            document.cookie = cookies[i].split("=")[0] + "=0";
             // refresh the page to clear progress and disable the refresh warning
             hook = false;
             location.reload();
