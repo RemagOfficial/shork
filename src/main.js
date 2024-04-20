@@ -1,6 +1,6 @@
 (function() {
     let shorks = 0;
-    let autoShorks = 0;
+    let autoclickers = 0;
 
     const shorkCounter = document.getElementById("ShorksCount");
     const sharkImg = document.getElementById("Shark");
@@ -23,6 +23,7 @@
     const settings = document.getElementById("Settings");
     const settingsPanel = document.getElementById("SettingsDiv");
     const settingsFormattingText = document.getElementById("SettingsFormattingText");
+    const Autoclicker1 = document.getElementById("Autoclicker1");
 
     let hook = true;
 
@@ -34,6 +35,8 @@
     let PrestigeShopUnlocked = false;
     let shopPanelOpen = false;
     let settingsPanelOpen = false;
+    let tick = 0;
+    let autoclickerPrice = 100;
 
     var illions = ["", "thousand", "million", "billion", "trillion", "quadrillion", "quintillion", "sextillion", "septillion", "octillion", "nonillion", "decillion", "undecillion", "duodecillion", "tredecillion", "quattuordecillion", "quindecillion", "sexdecillion", "septendecillion", "octodecillion", "novemdecillion", "vigintillion", "unvigintillion", "duovigintillion", "trevigintillion", "quattuorvigintillion", "quinvigintillion", "sexvigintillion", "septenvigintillion", "octovigintillion", "nonvigintillion", "trigintillion", "untrigintillion", "duotrigintillion", "tretrigintillion", "quattuortrigintillion", "quintrigintillion", "sextrigintillion", "septentrigintillion", "octotrigintillion", "novemtrigintillion", "quadragintillion", "unquadragintillion", "duoquadragintillion", "trequadragintillion", "quattuorquadragintillion", "quinquadragintillion", "sexquadragintillion", "septenquadragintillion", "octoquadragintillion", "novemquadragintillion", "quinquagintillion", "unquinquagintillion", "duoquinquagintillion", "trequinquagintillion"];
     var illionsAbbr = ["", "k", "M", "B", "T", "Qa", "Qi", "Sx", "Sp", "O", "N", "D", "Ud", "DuD", "TrD", "QaD", "QiD", "SxD", "SpD", "OD", "ND", "V", "UnV", "DuV", "TrV", "QaV", "QiV", "SxV", "SpV", "OV", "NV", "Tg", "UnT", "DuT", "TrT", "QaT", "QiT", "SxT", "SpT", "OT", "NT", "Dg", "UnD", "DuDg", "TrDg", "QaDg", "QiDg", "SxDg", "SpDg", "ODg", "NDg", "Sg", "UnSg", "DuSg", "TrSg", "QaSg", "QiSg", "SxSg", "SpSg", "OSg"];
@@ -60,7 +63,7 @@
 
     window.addEventListener('beforeunload', handleBeforeUnload);
 
-    sharkImg.addEventListener("click", addShorks);
+    sharkImg.addEventListener("click", addShorksClicks);
     formatting.addEventListener("click", updateFormatting);
     about.addEventListener("click", openAbout);
     close.addEventListener("click", closeAbout);
@@ -68,6 +71,7 @@
     settings.addEventListener("click", openSettings);
     shopNormal.addEventListener("click", openShopNormal);
     shopPrestige.addEventListener("click", openShopPrestige);
+    Autoclicker1.addEventListener("click", purchaseAutoclicker1);
 
 
     // Add event listeners to load the game save when the load button is clicked
@@ -93,25 +97,33 @@
         formattingMode = (formattingMode + 1) % 4;
     }
 
-    function addShorks() {
+    function addShorksClicks() {
         shorks += 1;
     }
 
-    function addShorksAuto() {
-        // add shorks dependant on number of auto shorks, if the number of auto shorks is over 10 add them to the shork counter over a few seconds
-        if (autoShorks > 10) {
-            for (var i = 0; i < autoShorks; i++) {
-                setTimeout(function() {
-                    addShorks();
-                }, i * 10);
-            }
+    function purchaseAutoclicker1() {
+        // if shorks is over the autoclicker price, add 1 autoclicker and remove the autoclicker price from shorks
+        if (shorks > autoclickerPrice) {
+            autoclickers += 1;
+            shorks -= autoclickerPrice;
+            // increase the autoclicker price by 20%
+            autoclickerPrice = Math.ceil(autoclickerPrice * 1.2);
+            // update the autoclicker price text in the autoclicker1 title to reflect the new price
+            Autoclicker1.title = "Hire a Feminine Person to Make Shorks.\nCost: " + autoclickerPrice + " Shorks";
+        } else {
+            // tell the user they don't have enough shorks
+            alert("You don't have enough Shorks to buy an Autoclicker. You need at least 100 Shorks.");
         }
-        else {
-            for (var i = 0; i < autoShorks; i++) {
-                addShorks();
-            }
+    }
+    function addShorksAuto(number) {
+        // add shorks based on the number of autoclickers with a delay of 100ms between each addition
+        for (var i = 0; i < number; i++) {
+            setTimeout(addShorksClicks, i * 100);
+            // log number of shorks added
+            console.log("added " + number + " shorks");
         }
     };
+
 
 
     function updateUI() {
@@ -279,7 +291,16 @@
 
     const everyTick = () => {
         updateUI();
-        addShorksAuto();
+        // only add shorks automatically every 20 ticks
+        tick++;
+        // log the tick counter
+        // console.log("Tick: " + tick);
+        if (tick % 20 == 0) {
+            // add shorks automatically
+            addShorksAuto(autoclickers);
+            // reset the tick counter
+            tick = 0;
+        }
     }
 
     setInterval(everyTick, 50); // Every 50ms = 1/20th of a second

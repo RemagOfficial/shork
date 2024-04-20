@@ -289,3 +289,16 @@ html, body, #Content {
   bottom: 0%;
   left: 0.1%;
 }
+
+#Autoclicker1 {
+  border: #b06a3b 5px solid;
+  background-color: #b67f5a;
+}
+
+#Autoclicker1:hover:not(:active) {
+  cursor: pointer;
+}
+
+#Autoclicker1:active:not(:hover) {
+  cursor: pointer;
+}
