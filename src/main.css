@@ -285,6 +285,16 @@ html, body, #Content {
   font-size: xx-large;
 }
 
+#ShorksPerSecond {
+  position: absolute;
+  left: 50%;
+  top: 80%;
+  transform: translateX(-50%);
+  text-align: center;
+  font-family: "LCDSolid";
+  font-size: xx-large;
+}
+
 #SaveTimer {
   position: absolute;
   bottom: 0%;

@@ -1,6 +1,6 @@
 (function() {
     let shorks = 0;
-    let autoclickers = 0;
+    let autoclickers = 999;
 
     const shorkCounter = document.getElementById("ShorksCount");
     const sharkImg = document.getElementById("Shark");
@@ -103,22 +103,23 @@
 
     function purchaseAutoclicker1() {
         // if shorks is over the autoclicker price, add 1 autoclicker and remove the autoclicker price from shorks
-        if (shorks > autoclickerPrice) {
+        if (shorks >= autoclickerPrice) {
             autoclickers += 1;
             shorks -= autoclickerPrice;
             // increase the autoclicker price by 20%
             autoclickerPrice = Math.ceil(autoclickerPrice * 1.2);
             // update the autoclicker price text in the autoclicker1 title to reflect the new price
-            Autoclicker1.title = "Hire a Feminine Person to Make Shorks.\nCost: " + autoclickerPrice + " Shorks";
+            Autoclicker1.title = "Hire a Feminine Person to Make Shorks\nCost: " + autoclickerPrice + " Shorks\n You have: x" + autoclickers + " Feminine People";
+            // update the ShorksPerSecond text to show how many shorks are added per second
         } else {
             // tell the user they don't have enough shorks
             alert("You don't have enough Shorks to buy an Autoclicker. You need at least 100 Shorks.");
         }
     }
     function addShorksAuto(number) {
-        // add shorks based on the number of autoclickers with a delay of 100ms between each addition
+        // add shorks based on the number of autoclickers with a delay of 10ms between each addition
         for (var i = 0; i < number; i++) {
-            setTimeout(addShorksClicks, i * 100);
+            setTimeout(addShorksClicks, i * 10);
             // log number of shorks added
             console.log("added " + number + " shorks");
         }
@@ -129,15 +130,19 @@
     function updateUI() {
         if (formattingMode == 0) {
             shorkCounter.textContent = shorks.toLocaleString() + " Shorks";
+            ShorksPerSecond.textContent = "Shorks Per Second: " + autoclickers.toLocaleString() + "/s";
             settingsFormattingText.textContent = "Normal";
         } else if (formattingMode == 1) {
             shorkCounter.textContent = formatInt(shorks);
+            ShorksPerSecond.textContent = "Shorks Per Second: " + formatInt(autoclickers) + "/s";
             settingsFormattingText.textContent = "Standard Form";
         } else if (formattingMode == 2) {
             shorkCounter.textContent = formatIntAbbr(shorks);
+            ShorksPerSecond.textContent = "Shorks Per Second: " + formatIntAbbr(autoclickers) + "/s";
             settingsFormattingText.textContent = "Abbreviated Standard Form";
         } else if (formattingMode == 3) {
             shorkCounter.textContent = shorks.toExponential(2) + " Shorks";
+            ShorksPerSecond.textContent = "Shorks Per Second: " + autoclickers.toExponential(2) + "/s";
             settingsFormattingText.textContent = "Scientific";
         }
         // update the save timer
