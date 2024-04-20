@@ -188,6 +188,7 @@
         document.cookie = "shorkCounter=" + shorks;
         document.cookie = "formattingMode=" + formattingMode;
         document.cookie = "autoclickers=" + autoclickers;
+        document.cookie = "autoclickerPrice=" + autoclickerPrice;
         hook = false;
         lastSave = Date.now();
         // tell the user that their save has been saved
@@ -206,6 +207,8 @@
                 formattingMode = parseInt(cookie[1]);
             } else if (cookie[0] == "autoclickers") {
                 autoclickers = parseInt(cookie[1]);
+            } else if (cookie[0] == "autoclickerPrice") {
+                autoclickerPrice = parseInt(cookie[1]);
             }
         }
         updateUI();
