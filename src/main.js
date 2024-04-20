@@ -1,6 +1,6 @@
 (function() {
     let shorks = 0;
-    let autoclickers = 999;
+    let autoclickers = 0;
 
     const shorkCounter = document.getElementById("ShorksCount");
     const sharkImg = document.getElementById("Shark");
@@ -120,8 +120,6 @@
         // add shorks based on the number of autoclickers with a delay of 10ms between each addition
         for (var i = 0; i < number; i++) {
             setTimeout(addShorksClicks, i * 10);
-            // log number of shorks added
-            console.log("added " + number + " shorks");
         }
     };
 
