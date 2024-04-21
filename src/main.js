@@ -108,8 +108,6 @@
             shorks -= autoclickerPrice;
             // increase the autoclicker price by 20%
             autoclickerPrice = Math.ceil(autoclickerPrice * 1.2);
-            // update the autoclicker price text in the autoclicker1 title to reflect the new price
-            Autoclicker1.title = "Hire a Feminine Person to Make Shorks\nCost: " + autoclickerPrice + " Shorks\n You have: x" + autoclickers + " Feminine People";
             // update the ShorksPerSecond text to show how many shorks are added per second
         } else {
             // tell the user they don't have enough shorks
@@ -128,21 +126,26 @@
     function updateUI() {
         if (formattingMode == 0) {
             shorkCounter.textContent = shorks.toLocaleString() + " Shorks";
+            Autoclicker1.title = "Hire a Feminine Person to Make Shorks\nCost: " + autoclickerPrice.toLocaleString() + " Shorks\n You have: x" + autoclickers.toLocaleString() + " Feminine People";
             ShorksPerSecond.textContent = "Shorks Per Second: " + autoclickers.toLocaleString() + "/s";
             settingsFormattingText.textContent = "Normal";
         } else if (formattingMode == 1) {
             shorkCounter.textContent = formatInt(shorks);
+            Autoclicker1.title = "Hire a Feminine Person to Make Shorks\nCost: " + formatInt(autoclickerPrice) + " Shorks\n You have: x" + formatInt(autoclickers) + " Feminine People";
             ShorksPerSecond.textContent = "Shorks Per Second: " + formatInt(autoclickers) + "/s";
             settingsFormattingText.textContent = "Standard Form";
         } else if (formattingMode == 2) {
             shorkCounter.textContent = formatIntAbbr(shorks);
+            Autoclicker1.title = "Hire a Feminine Person to Make Shorks\nCost: " + formatIntAbbr(autoclickerPrice) + " Shorks\n You have: x" + formatIntAbbr(autoclickers) + " Feminine People";
             ShorksPerSecond.textContent = "Shorks Per Second: " + formatIntAbbr(autoclickers) + "/s";
             settingsFormattingText.textContent = "Abbreviated Standard Form";
         } else if (formattingMode == 3) {
             shorkCounter.textContent = shorks.toExponential(2) + " Shorks";
+            Autoclicker1.title = "Hire a Feminine Person to Make Shorks\nCost: " + autoclickerPrice.toExponential(2) + " Shorks\n You have: x" + autoclickers.toExponential(2) + " Feminine People";
             ShorksPerSecond.textContent = "Shorks Per Second: " + autoclickers.toExponential(2) + "/s";
             settingsFormattingText.textContent = "Scientific";
         }
+
         // update the save timer
         saveTimer.textContent = "Next save in " + (saveInterval - (Date.now() - lastSave) / 1000).toFixed(0) + " seconds.";
     }
