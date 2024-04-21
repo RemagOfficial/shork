@@ -112,8 +112,24 @@
             autoclickerPrice = Math.ceil(autoclickerPrice * 1.2);
             // update the ShorksPerSecond text to show how many shorks are added per second
         } else {
-            // tell the user they don't have enough shorks
-            alert("You don't have enough Shorks to buy an Autoclicker. You need at least 100 Shorks.");
+            // tell the user they don't have enough shorks and format the autoclicker price depending on the formatting mode
+            switch (formattingMode) {
+                case 0:
+                    alert("You don't have enough Shorks to buy an Autoclicker. You need at least " + autoclickerPrice.toLocaleString() + " Shorks.");
+                    break;
+                case 1:
+                    alert("You don't have enough Shorks to buy an Autoclicker. You need at least " + formatInt(autoclickerPrice) + " Shorks.");
+                    break;
+                case 2:
+                    alert("You don't have enough Shorks to buy an Autoclicker. You need at least " + formatIntAbbr(autoclickerPrice) + " Shorks.");
+                    break;
+                case 3:
+                    alert("You don't have enough Shorks to buy an Autoclicker. You need at least " + autoclickerPrice.toExponential(2) + " Shorks.");
+                    break;
+                default:
+                    alert("You don't have enough Shorks to buy an Autoclicker. You need at least " + autoclickerPrice.toLocaleString() + " Shorks.");
+                    break;
+            }
         }
     }
     function addShorksAuto(number) {
