@@ -49,6 +49,8 @@
         console.log('Shork Clicker loaded!');
         console.log('Why are you looking at the console?');
         console.log('Theres nothing to see here!');
+        // set the title div title to what its currently set to plus the number of lines of javascript code on a new line and the number of lines of HTML code on another new line
+        title.title =  "V2.0 Alpha" + "\nLines of Javascript: " + (Object.keys(window).length).toLocaleString() + "\nLines of HTML: " + (document.getElementsByTagName("html")[0].innerHTML.split("\n").length).toLocaleString();
         // wait the load interval then call the load game function
         setTimeout(loadGame, loadInterval * 1000);
 
@@ -355,8 +357,6 @@
             // reset the tick counter
             tick = 0;
         }
-        // set the title div title to what its currently set to plus the number of lines of javascript code on a new line and the number of lines of HTML code on another new line
-        title.title =  "V2.0 Alpha" + "\nLines of Javascript: " + (Object.keys(window).length).toLocaleString() + "\nLines of HTML: " + (document.getElementsByTagName("html")[0].innerHTML.split("\n").length).toLocaleString();
     }
 
     setInterval(everyTick, 50); // Every 50ms = 1/20th of a second
