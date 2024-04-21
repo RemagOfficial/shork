@@ -233,10 +233,10 @@
                     console.log(`autoclickers ${cookie[0]} parsed ${cookie[1]} isNaN ${isNaNAutoclickers}`);
                     break;
                 case "autoclickerPrice":
-                    // Update the autoclickerPrice variable with the parsed value or 0 if NaN
+                    // Update the autoclickerPrice variable with the parsed value or 100 if NaN
                     const parsedAutoclickerPrice = parseInt(cookie[1]);
                     const isNaNAutoclickerPrice = isNaN(parsedAutoclickerPrice);
-                    autoclickerPrice = isNaNAutoclickerPrice ? 0 : parsedAutoclickerPrice;
+                    autoclickerPrice = isNaNAutoclickerPrice ? 100 : parsedAutoclickerPrice;
                     console.log(`autoclickerPrice ${cookie[0]} parsed ${cookie[1]} isNaN ${isNaNAutoclickerPrice}`);
                     break;
                 default:
