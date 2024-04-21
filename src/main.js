@@ -6,7 +6,7 @@
     const sharkImg = document.getElementById("Shark");
     const formatting = document.getElementById("SettingsFormatting");
     const body = document.getElementById("Content");
-    // const title = document.getElementById("Title");
+    const title = document.getElementById("Title");
     const about = document.getElementById("About");
     const aboutPanel = document.getElementById("AboutDiv");
     const close = document.getElementById("Close");
@@ -195,26 +195,64 @@
         console.log("saved");
     }
 
-    // a function that loads the shork counter and formatting mode from a browser cookie when the load button is clicked
+    /**
+    * Function that loads the save data from a browser cookie when the load button is clicked.
+    *
+    * @return {void}
+    */
     function loadGame() {
-        // get the shork counter and formatting mode from the cookie using their names
+        // Split the cookies string into an array of cookies
         var cookies = document.cookie.split("; ");
+
+        // Loop through each cookie
         for (var i = 0; i < cookies.length; i++) {
+            // Split the cookie string into an array with name and value
             var cookie = cookies[i].split("=");
-            if (cookie[0] == "shorkCounter") {
-                shorks = parseInt(cookie[1]);
-            } else if (cookie[0] == "formattingMode") {
-                formattingMode = parseInt(cookie[1]);
-            } else if (cookie[0] == "autoclickers") {
-                autoclickers = parseInt(cookie[1]);
-            } else if (cookie[0] == "autoclickerPrice") {
-                autoclickerPrice = parseInt(cookie[1]);
+
+            // Switch on the cookie name and update the corresponding variable if the value is not NaN
+            switch (cookie[0]) {
+                case "shorkCounter":
+                    // Update the shorks variable with the parsed value or 0 if NaN
+                    const parsedShorks = parseInt(cookie[1]);
+                    const isNaNShorks = isNaN(parsedShorks);
+                    shorks = isNaNShorks ? 0 : parsedShorks;
+                    console.log(`shorkCounter ${cookie[0]} parsed ${cookie[1]} isNaN ${isNaNShorks}`);
+                    break;
+                case "formattingMode":
+                    // Update the formattingMode variable with the parsed value or 0 if NaN
+                    const parsedFormattingMode = parseInt(cookie[1]);
+                    const isNaNFormattingMode = isNaN(parsedFormattingMode);
+                    formattingMode = isNaNFormattingMode ? 0 : parsedFormattingMode;
+                    console.log(`formattingMode ${cookie[0]} parsed ${cookie[1]} isNaN ${isNaNFormattingMode}`);
+                    break;
+                case "autoclickers":
+                    // Update the autoclickers variable with the parsed value or 0 if NaN
+                    const parsedAutoclickers = parseInt(cookie[1]);
+                    const isNaNAutoclickers = isNaN(parsedAutoclickers);
+                    autoclickers = isNaNAutoclickers ? 0 : parsedAutoclickers;
+                    console.log(`autoclickers ${cookie[0]} parsed ${cookie[1]} isNaN ${isNaNAutoclickers}`);
+                    break;
+                case "autoclickerPrice":
+                    // Update the autoclickerPrice variable with the parsed value or 0 if NaN
+                    const parsedAutoclickerPrice = parseInt(cookie[1]);
+                    const isNaNAutoclickerPrice = isNaN(parsedAutoclickerPrice);
+                    autoclickerPrice = isNaNAutoclickerPrice ? 0 : parsedAutoclickerPrice;
+                    console.log(`autoclickerPrice ${cookie[0]} parsed ${cookie[1]} isNaN ${isNaNAutoclickerPrice}`);
+                    break;
+                default:
+                    // Do nothing for unknown cookie names
+                    console.log(`Unknown cookie ${cookie[0]}`);
+                    break;
             }
         }
+
+        // Update the user interface to reflect the loaded values
         updateUI();
-        // set hook to true so that the game will not want the user to save before they close the page
+
+        // Set hook to true so that the game will not want the user to save before they close the page
         hook = true;
-        // tell the user that their save has been loaded
+
+        // Log that the save has been loaded
         console.log("loaded");
     }
 
@@ -310,6 +348,8 @@
             // reset the tick counter
             tick = 0;
         }
+        // set the title div title to what its currently set to plus the number of lines of javascript code on a new line and the number of lines of HTML code on another new line
+        title.title =  "V2.0 Alpha" + "\nLines of Javascript: " + (Object.keys(window).length).toLocaleString() + "\nLines of HTML: " + (document.getElementsByTagName("html")[0].innerHTML.split("\n").length).toLocaleString();
     }
 
     setInterval(everyTick, 50); // Every 50ms = 1/20th of a second
