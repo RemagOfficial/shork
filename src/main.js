@@ -265,8 +265,12 @@
         // clear all cookies
         var cookies = document.cookie.split(";");
         for (var i = 0; i < cookies.length; i++) {
-            // set all cookies to 0
-            document.cookie = cookies[i].split("=")[0] + "=0";
+            // set all cookies to 0 other than the autoclicker price cookie which is set to 100
+            if (cookies[i].split("=")[0] != "autoclickerPrice") {
+                document.cookie = cookies[i].split("=")[0] + "=0";
+            } else {
+                document.cookie = cookies[i].split("=")[0] + "=" + autoclickerPrice;
+            }
             // refresh the page to clear progress and disable the refresh warning
             hook = false;
             location.reload();
