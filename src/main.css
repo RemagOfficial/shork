@@ -76,7 +76,7 @@ html, body, #Content {
 
 #Formatting {
   position: absolute;
-  top: 11%;
+  top: calc(16px + 10%);
   left: 0.9%;
   height: 32px;
   width: 256px;
