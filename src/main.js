@@ -134,10 +134,6 @@
                     break;
             }
         }
-        // add the upgrade if 10 autoclickers have been purchased
-        if (autoclickers >= 10) {
-            addUpgrades("morepersecond", "2x More Shorks from Feminine People", autoclickerUpgradePrice, autoclickerUpgradePurchased);
-        }
     }
     function addShorksAuto(number) {
         // add shorks based on the number of autoclickers multiplied by the production rate with a delay of 10ms between each addition
@@ -419,6 +415,10 @@
         if (morepersecond != null) {
             // Add event listener to purchase the upgrade
             morepersecond.addEventListener("click", purchaseUpgrade);
+        }
+        // add the upgrade if 10 autoclickers have been purchased
+        if (autoclickers >= 10) {
+            addUpgrades("morepersecond", "2x More Shorks from Feminine People", autoclickerUpgradePrice, autoclickerUpgradePurchased);
         }
     }
 
