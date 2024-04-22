@@ -27,7 +27,6 @@
     const settingsFormattingText = document.getElementById("SettingsFormattingText");
     const Autoclicker1 = document.getElementById("Autoclicker1");
     const Upgrades = document.getElementById("Upgrades");
-    let morepersecond = "temp";
 
     let hook = true;
 
@@ -171,12 +170,6 @@
 
         // update the save timer
         saveTimer.textContent = "Next save in " + (saveInterval - (Date.now() - lastSave) / 1000).toFixed(0) + " seconds.";
-
-        // if the user has purchased the upgrade for more feminine people speed update the title
-        // if morepersecond is undefined then the upgrade doesn't exist so don't update the title
-        if (morepersecond !== "temp" && autoclickerUpgradePurchased) {
-            morepersecond.title = "Purchased 2x Feminine Person Speed";
-        }
     }
 
     function formatInt(number) {
@@ -422,6 +415,13 @@
             // Add event listener to purchase the upgrade
             morepersecond.addEventListener("click", purchaseUpgrade);
         }
+
+        // if the user has purchased the upgrade for more feminine people speed update the title
+        // if morepersecond is undefined then the upgrade doesn't exist so don't update the title
+        if (morepersecond != null && autoclickerUpgradePurchased) {
+            morepersecond.title = "Purchased 2x Feminine Person Speed";
+        }
+
         // add the upgrade if 10 autoclickers have been purchased
         if (autoclickers >= 10) {
             addUpgrades("morepersecond", "2x More Shorks from Feminine People", autoclickerUpgradePrice, autoclickerUpgradePurchased);
