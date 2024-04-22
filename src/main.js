@@ -27,6 +27,7 @@
     const settingsFormattingText = document.getElementById("SettingsFormattingText");
     const Autoclicker1 = document.getElementById("Autoclicker1");
     const Upgrades = document.getElementById("Upgrades");
+    let morepersecond = "temp";
 
     let hook = true;
 
@@ -173,7 +174,7 @@
 
         // if the user has purchased the upgrade for more feminine people speed update the title
         // if morepersecond is undefined then the upgrade doesn't exist so don't update the title
-        if (morepersecond !== undefined && autoclickerUpgradePurchased) {
+        if (morepersecond !== "temp" && autoclickerUpgradePurchased) {
             morepersecond.title = "Purchased 2x Feminine Person Speed";
         }
     }
@@ -416,7 +417,7 @@
             // reset the tick counter
             tick = 0;
         }
-        const morepersecond = document.getElementById("morepersecond");
+        morepersecond = document.getElementById("morepersecond");
         if (morepersecond != null) {
             // Add event listener to purchase the upgrade
             morepersecond.addEventListener("click", purchaseUpgrade);
