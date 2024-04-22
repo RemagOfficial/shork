@@ -410,7 +410,7 @@
             // reset the tick counter
             tick = 0;
         }
-        morepersecond = document.getElementById("morepersecond");
+        const morepersecond = document.getElementById("morepersecond");
         if (morepersecond != null) {
             // Add event listener to purchase the upgrade
             morepersecond.addEventListener("click", purchaseUpgrade);
