@@ -170,11 +170,11 @@
 
         // update the save timer
         saveTimer.textContent = "Next save in " + (saveInterval - (Date.now() - lastSave) / 1000).toFixed(0) + " seconds.";
+
         // if the user has purchased the upgrade for more feminine people speed update the title
-        if (morepersecond != null) {
-            if (autoclickerUpgradePurchased) {
-                morepersecond.title = "Purchased 2x Feminine Person Speed";
-            }
+        // if morepersecond is undefined then the upgrade doesn't exist so don't update the title
+        if (morepersecond !== undefined && autoclickerUpgradePurchased) {
+            morepersecond.title = "Purchased 2x Feminine Person Speed";
         }
     }
 
