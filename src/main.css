@@ -52,18 +52,18 @@ html, body, #Content {
 }
 
 #ShopNormalUpgrades {
+  height: calc(100% - 50px - 144px);
   width: 100%;
   position: absolute;
-  top: 50px;
-  left: 10px;
+  top: calc(50px + 144px);
   z-index: 101;
 }
 
 #ShopPrestigeUpgrades {
+  height: calc(100% - 50px - 144px);
   width: 100%;
   position: absolute;
-  top: 50px;
-  left: 10px;
+  top: calc(50px + 144px);
   z-index: 102;
 }
 
@@ -304,6 +304,9 @@ html, body, #Content {
 }
 
 #Autoclicker1 {
+  position: absolute;
+  top: 30px;
+  left: 10px;
   width: min-content;
   border: #b06a3b 5px solid;
   background-color: #b67f5a;
@@ -318,9 +321,19 @@ html, body, #Content {
 }
 
 #line {
+  position: absolute;
+  top: 0px;
   left: 1%;
   width: 98%;
   border: 1px;
   border-style: solid;
   border-color: #b06a3b;
+}
+
+#Upgrades {
+  position: absolute;
+  top: -18%;
+  left: 0%;
+  width: 100%;
+  height: 144px;
 }

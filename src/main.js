@@ -1,6 +1,8 @@
 (function() {
     let shorks = 0;
     let autoclickers = 0;
+    let autoclickerUpgradePurchased = false;
+    let autoclickerProductionRate = 1;
 
     const shorkCounter = document.getElementById("ShorksCount");
     const sharkImg = document.getElementById("Shark");
@@ -24,6 +26,7 @@
     const settingsPanel = document.getElementById("SettingsDiv");
     const settingsFormattingText = document.getElementById("SettingsFormattingText");
     const Autoclicker1 = document.getElementById("Autoclicker1");
+    const Upgrades = document.getElementById("Upgrades");
 
     let hook = true;
 
@@ -37,6 +40,7 @@
     let settingsPanelOpen = false;
     let tick = 0;
     let autoclickerPrice = 100;
+    let autoclickerUpgradePrice = 1000;
 
     var illions = ["", "thousand", "million", "billion", "trillion", "quadrillion", "quintillion", "sextillion", "septillion", "octillion", "nonillion", "decillion", "undecillion", "duodecillion", "tredecillion", "quattuordecillion", "quindecillion", "sexdecillion", "septendecillion", "octodecillion", "novemdecillion", "vigintillion", "unvigintillion", "duovigintillion", "trevigintillion", "quattuorvigintillion", "quinvigintillion", "sexvigintillion", "septenvigintillion", "octovigintillion", "nonvigintillion", "trigintillion", "untrigintillion", "duotrigintillion", "tretrigintillion", "quattuortrigintillion", "quintrigintillion", "sextrigintillion", "septentrigintillion", "octotrigintillion", "novemtrigintillion", "quadragintillion", "unquadragintillion", "duoquadragintillion", "trequadragintillion", "quattuorquadragintillion", "quinquadragintillion", "sexquadragintillion", "septenquadragintillion", "octoquadragintillion", "novemquadragintillion", "quinquagintillion", "unquinquagintillion", "duoquinquagintillion", "trequinquagintillion"];
     var illionsAbbr = ["", "k", "M", "B", "T", "Qa", "Qi", "Sx", "Sp", "O", "N", "D", "Ud", "DuD", "TrD", "QaD", "QiD", "SxD", "SpD", "OD", "ND", "V", "UnV", "DuV", "TrV", "QaV", "QiV", "SxV", "SpV", "OV", "NV", "Tg", "UnT", "DuT", "TrT", "QaT", "QiT", "SxT", "SpT", "OT", "NT", "Dg", "UnD", "DuDg", "TrDg", "QaDg", "QiDg", "SxDg", "SpDg", "ODg", "NDg", "Sg", "UnSg", "DuSg", "TrSg", "QaSg", "QiSg", "SxSg", "SpSg", "OSg"];
@@ -74,7 +78,6 @@
     shopNormal.addEventListener("click", openShopNormal);
     shopPrestige.addEventListener("click", openShopPrestige);
     Autoclicker1.addEventListener("click", purchaseAutoclicker1);
-
 
     // Add event listeners to load the game save when the load button is clicked
     load.addEventListener("click", loadGame);
@@ -131,9 +134,13 @@
                     break;
             }
         }
+        // add the upgrade if 10 autoclickers have been purchased
+        if (autoclickers >= 10) {
+            addUpgrades("morepersecond", "2x More Shorks from Feminine People", autoclickerUpgradePrice, autoclickerUpgradePurchased);
+        }
     }
     function addShorksAuto(number) {
-        // add shorks based on the number of autoclickers with a delay of 10ms between each addition
+        // add shorks based on the number of autoclickers multiplied by the production rate with a delay of 10ms between each addition
         for (var i = 0; i < number; i++) {
             setTimeout(addShorksClicks, i * 10);
         }
@@ -142,25 +149,26 @@
 
 
     function updateUI() {
+        let sps = autoclickers * autoclickerProductionRate;
         if (formattingMode == 0) {
             shorkCounter.textContent = shorks.toLocaleString() + " Shorks";
             Autoclicker1.title = "Hire a Feminine Person to Make Shorks\nCost: " + autoclickerPrice.toLocaleString() + " Shorks\n You have: x" + autoclickers.toLocaleString() + " Feminine People";
-            ShorksPerSecond.textContent = "Shorks Per Second: " + autoclickers.toLocaleString() + "/s";
+            ShorksPerSecond.textContent = "Shorks Per Second: " + sps.toLocaleString() + "/s";
             settingsFormattingText.textContent = "Normal";
         } else if (formattingMode == 1) {
             shorkCounter.textContent = formatInt(shorks);
             Autoclicker1.title = "Hire a Feminine Person to Make Shorks\nCost: " + formatInt(autoclickerPrice) + " Shorks\n You have: x" + formatInt(autoclickers) + " Feminine People";
-            ShorksPerSecond.textContent = "Shorks Per Second: " + formatInt(autoclickers) + "/s";
+            ShorksPerSecond.textContent = "Shorks Per Second: " + formatInt(sps) + "/s";
             settingsFormattingText.textContent = "Standard Form";
         } else if (formattingMode == 2) {
             shorkCounter.textContent = formatIntAbbr(shorks);
             Autoclicker1.title = "Hire a Feminine Person to Make Shorks\nCost: " + formatIntAbbr(autoclickerPrice) + " Shorks\n You have: x" + formatIntAbbr(autoclickers) + " Feminine People";
-            ShorksPerSecond.textContent = "Shorks Per Second: " + formatIntAbbr(autoclickers) + "/s";
+            ShorksPerSecond.textContent = "Shorks Per Second: " + formatIntAbbr(sps) + "/s";
             settingsFormattingText.textContent = "Abbreviated Standard Form";
         } else if (formattingMode == 3) {
             shorkCounter.textContent = shorks.toExponential(2) + " Shorks";
             Autoclicker1.title = "Hire a Feminine Person to Make Shorks\nCost: " + autoclickerPrice.toExponential(2) + " Shorks\n You have: x" + autoclickers.toExponential(2) + " Feminine People";
-            ShorksPerSecond.textContent = "Shorks Per Second: " + autoclickers.toExponential(2) + "/s";
+            ShorksPerSecond.textContent = "Shorks Per Second: " + sps.toExponential(2) + "/s";
             settingsFormattingText.textContent = "Scientific";
         }
 
@@ -210,6 +218,8 @@
         document.cookie = "formattingMode=" + formattingMode;
         document.cookie = "autoclickers=" + autoclickers;
         document.cookie = "autoclickerPrice=" + autoclickerPrice;
+        document.cookie = "autoclickerUpgradePurchased=" + autoclickerUpgradePurchased;
+        document.cookie = "autoclickerProductionRate=" + autoclickerProductionRate;
         hook = false;
         lastSave = Date.now();
         // tell the user that their save has been saved
@@ -260,6 +270,20 @@
                     autoclickerPrice = isNaNAutoclickerPrice ? 100 : parsedAutoclickerPrice;
                     console.log(`autoclickerPrice ${cookie[0]} parsed ${cookie[1]} isNaN ${isNaNAutoclickerPrice}`);
                     break;
+                case "autoclickerUpgradePurchased":
+                    // Update the autoclickerUpgradePurchased variable with the parsed value or false if not a boolean
+                    const parsedAutoclickerUpgradePurchased = cookie[1];
+                    const isNaNAutoclickerUpgradePurchased = parsedAutoclickerUpgradePurchased !== "true" && parsedAutoclickerUpgradePurchased !== "false";
+                    autoclickerUpgradePurchased = isNaNAutoclickerUpgradePurchased ? false : parsedAutoclickerUpgradePurchased;
+                    console.log(`autoclickerUpgradePurchased ${cookie[0]} parsed ${cookie[1]} invalid ${isNaNAutoclickerUpgradePurchased}`);
+                    break;
+                case "autoclickerProductionRate":
+                    // Update the autoclickerProductionRate variable with the parsed value or 0 if NaN
+                    const parsedAutoclickerProductionRate = parseInt(cookie[1]);
+                    const isNaNAutoclickerProductionRate = isNaN(parsedAutoclickerProductionRate);
+                    autoclickerProductionRate = isNaNAutoclickerProductionRate ? 0 : parsedAutoclickerProductionRate;
+                    console.log(`autoclickerProductionRate ${cookie[0]} parsed ${cookie[1]} isNaN ${isNaNAutoclickerProductionRate}`);
+                    break;
                 default:
                     // Do nothing for unknown cookie names
                     console.log(`Unknown cookie ${cookie[0]}`);
@@ -283,19 +307,12 @@
         if (!confirm("Are you sure you want to clear your save data? This action cannot be undone!!!!")) {
             return;
         }
-        // clear all cookies
-        var cookies = document.cookie.split(";");
-        for (var i = 0; i < cookies.length; i++) {
-            // set all cookies to 0 other than the autoclicker price cookie which is set to 100
-            if (cookies[i].split("=")[0] != "autoclickerPrice") {
-                document.cookie = cookies[i].split("=")[0] + "=0";
-            } else {
-                document.cookie = cookies[i].split("=")[0] + "=" + autoclickerPrice;
-            }
-            // refresh the page to clear progress and disable the refresh warning
-            hook = false;
-            location.reload();
-        }
+        // set all cookies to 0 other than the autoclicker price cookie which is set to 100 and the autoclickerUpgradePurchased cookie
+        var otherCookies = document.cookie.split(";").filter(c => !/^(autoclickerPrice|autoclickerUpgradePurchased)/.test(c)).map(c => c.split("=")[0] + "=0");
+        document.cookie = otherCookies.join(";") + "; autoclickerPrice=" + autoclickerPrice + "; autoclickerUpgradePurchased=" + autoclickerUpgradePurchased;
+        // refresh the page to clear progress and disable the refresh warning
+        hook = false;
+        location.reload();
         // tell the user that their cookies have been cleared
         alert("Your save data has been cleared!");
         console.log("cleared");
@@ -358,6 +375,31 @@
         }
     }
 
+    // a function that adds a sub div to the Upgrades only when the previousUpgrade var is greater than or equal to the minUpgrades
+    // in the sub div there is an image of the upgrade with a border that matches the other upgrades
+    // the sub div has a border that matches the other upgrades like autoclicker1
+    // when the sub div is hovered it changes the cursor to a pointer
+    function addUpgrades(upgradeID, upgradeName, upgradePrice) {
+        // if the div doesn't already exist, add it
+        if (document.getElementById(upgradeID) == null) {
+            Upgrades.innerHTML += '<div id=' + upgradeID + ' title="' + upgradeName + '&NewLine;Cost: ' + upgradePrice + ' Shorks&NewLine;You have not Purchased This Upgrade" style="border: #b06a3b 5px solid; background-color: #b67f5a; width: min-content; left: 10px; position: absolute; top: 30px; cursor: pointer;"><img src="src/assets/textures/' + upgradeID + '.png"></div>';
+        }
+            
+    }
+
+    // a function that purchases an upgrade if the user has enough shorks
+    function purchaseUpgrade() {
+        if (shorks >= autoclickerUpgradePrice) {
+            shorks -= autoclickerUpgradePrice;
+            autoclickerUpgradePurchased = true;
+            autoclickerProductionRate++;
+            morepersecond.title = "Purchased 2x Feminine Person Speed";
+        } else {
+            alert("Not enough Shorks!");
+        }
+    }
+
+
     // a function that calls the save function every 60 seconds
     setInterval(saveGame, saveInterval * 1000); // multiply by 1000 to convert seconds to milliseconds
 
@@ -368,10 +410,15 @@
         // log the tick counter
         // console.log("Tick: " + tick);
         if (tick % 20 == 0) {
-            // add shorks automatically
-            addShorksAuto(autoclickers);
+            // add shorks automatically depending on the number of autoclickers and the production rate
+            addShorksAuto(autoclickers * autoclickerProductionRate);
             // reset the tick counter
             tick = 0;
+        }
+        const morepersecond = document.getElementById("morepersecond");
+        if (morepersecond != null) {
+            // Add event listener to purchase the upgrade
+            morepersecond.addEventListener("click", purchaseUpgrade);
         }
     }
 
