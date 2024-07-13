@@ -280,7 +280,7 @@ html, body, #Content {
 #ShorksCount {
   position: absolute;
   left: 50%;
-  top: 70%;
+  top: 5%;
   transform: translateX(-50%);
   text-align: center;
   font-family: "LCDSolid";
@@ -290,7 +290,6 @@ html, body, #Content {
 #ShorksPerSecond {
   position: absolute;
   left: 50%;
-  top: 80%;
   transform: translateX(-50%);
   text-align: center;
   font-family: "LCDSolid";
@@ -320,6 +319,28 @@ html, body, #Content {
   cursor: pointer;
 }
 
+#CursorUpgrade1 {
+  position: absolute;
+  top: 30px;
+  left: 110px;
+  width: min-content;
+  height: 64px;
+  border: #b06a3b 5px solid;
+  background-color: #b67f5a;
+}
+
+#CursorUpgrade1:hover:not(:active) {
+  cursor: pointer;
+}
+
+#CursorUpgrade1:active:not(:hover) {
+  cursor: pointer;
+}
+
+#CursorUpgrade1Img {
+  transform: translateY(-10%) scale(0.75);
+}
+
 #line {
   position: absolute;
   top: 0px;
@@ -336,4 +357,9 @@ html, body, #Content {
   left: 0%;
   width: 100%;
   height: 144px;
+  display: flex;
+}
+
+#10xCursor {
+  transform: scale(0.75);
 }
