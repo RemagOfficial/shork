@@ -20,6 +20,7 @@
     const close = document.getElementById("Close");
     const save = document.getElementById("Save");
     const load = document.getElementById("Load");
+    const discord = document.getElementById("Discord");
     const clear = document.getElementById("Clear");
     const saveTimer = document.getElementById("SaveTimer");
     const shop = document.getElementById("Shop");
@@ -89,6 +90,7 @@
     shopPrestige.addEventListener("click", openShopPrestige);
     Autoclicker1.addEventListener("click", purchaseAutoclicker1);
     CursorUpgrade.addEventListener("click", purchaseCursorUpgrade);
+    discord.addEventListener("click", openDiscordLink);
 
     // Add event listeners to load the game save when the load button is clicked
     load.addEventListener("click", loadGame);
@@ -354,6 +356,11 @@
         // tell the user that their cookies have been cleared
         alert("Your save data has been cleared!");
         console.log("cleared");
+    }
+
+    // a function that opens the discord invite link in a new tab when the discord button is clicked
+    function openDiscordLink() {
+        window.open("https://discord.gg/N7mjssVF8Z", "_blank");
     }
 
     // a function that moves the shop button over to the left side of the screen when the shop button is clicked and moves it back to the right side of the screen when the shop button is clicked again and makes the shop panel visible
