@@ -123,6 +123,35 @@ html, body, #Content {
   text-align: center;
 }
 
+#SettingsStats {
+  height: 150px;
+  border-top: 2px solid #b06a3b;
+  border-bottom: 2px solid #b06a3b;
+}
+
+#SettingsStatsPlaytime {
+  width: 100%;
+  text-align: center;
+  position: absolute;
+  top: auto;
+}
+
+#SettingsStatsText {
+  font-size: smaller;
+  text-align: center;
+  vertical-align: middle;
+  line-height: 32px;
+  width: 256px;
+  height: 32px;
+  padding: 0%;
+  margin: 0%;
+  position: absolute;
+}
+
+#SettingsStatsTitle {
+  text-align: center;
+}
+
 #subdivShop:active:not(:hover) {
   cursor: pointer;
 }
@@ -358,8 +387,4 @@ html, body, #Content {
   width: 100%;
   height: 144px;
   display: flex;
-}
-
-#10xCursor {
-  transform: scale(0.75);
 }

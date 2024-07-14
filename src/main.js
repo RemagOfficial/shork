@@ -31,6 +31,7 @@
     const settings = document.getElementById("Settings");
     const settingsPanel = document.getElementById("SettingsDiv");
     const settingsFormattingText = document.getElementById("SettingsFormattingText");
+    const settingsStatsPlaytime = document.getElementById("SettingsStatsPlaytime");
     const Autoclicker1 = document.getElementById("Autoclicker1");
     const CursorUpgrade = document.getElementById("CursorUpgrade1");
     const Upgrades = document.getElementById("Upgrades");
@@ -39,6 +40,7 @@
 
     let formattingMode = 0;
     let lastSave = Date.now();
+    let playtime = 0;
     let saveInterval = 30;
     let loadInterval = 5;
     let shopTabOpen = 1;
@@ -63,8 +65,6 @@
         console.log('Shork Clicker loaded!');
         console.log('Why are you looking at the console?');
         console.log('Theres nothing to see here!');
-        // set the title div title to what its currently set to plus the number of lines of javascript code on a new line and the number of lines of HTML code on another new line
-        title.title =  "V2.0 Alpha" + "\nLines of Javascript: " + (Object.keys(window).length).toLocaleString() + "\nLines of HTML: " + (document.getElementsByTagName("html")[0].innerHTML.split("\n").length).toLocaleString() + "\nThis game is still in alpha. Use at your own risk as your save may need to be deleted";
         // wait the load interval then call the load game function
         setTimeout(loadGame, loadInterval * 1000);
 
@@ -159,6 +159,13 @@
         ShorksPerSecond.textContent = "Shorks Per Second: " + formatNumberToCorrectFormat(sps) + "/s";
         settingsFormattingText.textContent = formattingModes[formattingMode];
         saveTimer.textContent = "Next save in " + (saveInterval - (Date.now() - lastSave) / 1000).toFixed(0) + " seconds.";
+        title.title =  "V2.0 Alpha" + "\nLines of Javascript: " + (Object.keys(window).length).toLocaleString() + "\nLines of HTML: " + (document.getElementsByTagName("html")[0].innerHTML.split("\n").length).toLocaleString() + "\nThis game is still in alpha. Use at your own risk as your save may need to be deleted!";
+        const seconds = Math.floor(playtime / 20);
+        const days = Math.floor(seconds / 86400);
+        const hours = Math.floor(seconds / 3600) % 24;
+        const minutes = Math.floor(seconds / 60) % 60;
+        const displaySeconds = seconds % 60;
+        settingsStatsPlaytime.textContent = `Playtime: ${days.toString().padStart(2, '0')}:${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${displaySeconds.toString().padStart(2, '0')}`;
     }
 
     function formatInt(number) {
@@ -222,6 +229,7 @@
         document.cookie = "autoclickerUpgrade1Purchased=" + autoclickerUpgrade1Purchased;
         document.cookie = "autoclickerUpgrade2Purchased=" + autoclickerUpgrade2Purchased;
         document.cookie = "autoclickerProductionRate=" + autoclickerProductionRate;
+        document.cookie = "playtime=" + playtime;
         hook = false;
         lastSave = Date.now();
         // tell the user that their save has been saved
@@ -306,6 +314,13 @@
                     const isNaNAutoclickerProductionRate = isNaN(parsedAutoclickerProductionRate);
                     autoclickerProductionRate = isNaNAutoclickerProductionRate ? 0 : parsedAutoclickerProductionRate;
                     console.log(`autoclickerProductionRate ${cookie[0]} parsed ${cookie[1]} isNaN ${isNaNAutoclickerProductionRate}`);
+                    break;
+                case "playtime":
+                    // Update the playtime variable with the parsed value or 0 if NaN
+                    const parsedPlaytime = parseInt(cookie[1]);
+                    const isNaNPlaytime = isNaN(parsedPlaytime);
+                    playtime = isNaNPlaytime ? 0 : parsedPlaytime;
+                    console.log(`playtime ${cookie[0]} parsed ${cookie[1]} isNaN ${isNaNPlaytime}`);
                     break;
                 default:
                     // Do nothing for unknown cookie names
@@ -451,6 +466,7 @@
 
     const everyTick = () => {
         updateUI();
+        playtime++;
         // only add shorks automatically every 20 ticks
         tick++;
         // log the tick counter
