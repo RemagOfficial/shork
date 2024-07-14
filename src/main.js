@@ -1,5 +1,5 @@
 (function() {
-    let shorks = 1000000000;
+    let shorks = 0;
     let autoclickers = 0;
     let cursorUpgrades = 0;
     let autoclickerUpgrade1Purchased = false;
