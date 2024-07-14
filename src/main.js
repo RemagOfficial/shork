@@ -2,10 +2,13 @@
     let shorks = 1000000000;
     let autoclickers = 0;
     let cursorUpgrades = 0;
-    let autoclickerUpgradePurchased = false;
+    let autoclickerUpgrade1Purchased = false;
+    let autoclickerUpgrade2Purchased = false;
     let cursorUpgradeUpgradePurchased = false;
     let autoclickerProductionRate = 1;
     let priceScalingPercent = 15;
+
+    const formattingModes = ["Normal", "Standard Form", "Abbreviated Standard Form", "Scientific"];
 
     const shorkCounter = document.getElementById("ShorksCount");
     const sharkImg = document.getElementById("Shark");
@@ -44,7 +47,8 @@
     let settingsPanelOpen = false;
     let tick = 0;
     let autoclickerPrice = 100;
-    let autoclickerUpgradePrice = 1000;
+    let autoclickerUpgrade1Price = 1000;
+    let autoclickerUpgrade2Price = 10000;
     let cursorUpgradePrice = 25;
     let cursorUpgradeUpgradePrice = 10000;
 
@@ -75,7 +79,7 @@
 
     window.addEventListener('beforeunload', handleBeforeUnload);
 
-    sharkImg.addEventListener("click", addShorksClicks);
+    sharkImg.addEventListener("click", () => addShorks(1, false));
     formatting.addEventListener("click", updateFormatting);
     about.addEventListener("click", openAbout);
     close.addEventListener("click", closeAbout);
@@ -109,8 +113,13 @@
         formattingMode = (formattingMode + 1) % 4;
     }
 
-    function addShorksClicks() {
-        shorks += 1 + cursorUpgrades;
+    function addShorks(number, auto) {
+        if (auto) {
+            shorks += number;
+        } else {
+            shorks += number + cursorUpgrades;
+        }
+
     }
 
     function purchaseAutoclicker1() {
@@ -123,23 +132,7 @@
             // update the ShorksPerSecond text to show how many shorks are added per second
         } else {
             // tell the user they don't have enough shorks and format the autoclicker price depending on the formatting mode
-            switch (formattingMode) {
-                case 0:
-                    alert("You don't have enough Shorks to buy an Autoclicker. You need at least " + autoclickerPrice.toLocaleString() + " Shorks.");
-                    break;
-                case 1:
-                    alert("You don't have enough Shorks to buy an Autoclicker. You need at least " + formatInt(autoclickerPrice) + " Shorks.");
-                    break;
-                case 2:
-                    alert("You don't have enough Shorks to buy an Autoclicker. You need at least " + formatIntAbbr(autoclickerPrice) + " Shorks.");
-                    break;
-                case 3:
-                    alert("You don't have enough Shorks to buy an Autoclicker. You need at least " + autoclickerPrice.toExponential(2) + " Shorks.");
-                    break;
-                default:
-                    alert("You don't have enough Shorks to buy an Autoclicker. You need at least " + autoclickerPrice.toLocaleString() + " Shorks.");
-                    break;
-            }
+            alert("You don't have enough Shorks to buy an Autoclicker. You need at least " + formatNumberToCorrectFormat(autoclickerPrice) + " Shorks.");
         }
     }
     function purchaseCursorUpgrade() {
@@ -152,63 +145,19 @@
             // update the ShorksPerSecond text to show how many shorks are added per second
         } else {
             // tell the user they don't have enough shorks and format the autoclicker price depending on the formatting mode
-            switch (formattingMode) {
-                case 0:
-                    alert("You don't have enough Shorks to buy a Cursor Upgrade. You need at least " + cursorUpgradePrice.toLocaleString() + " Shorks.");
-                    break;
-                case 1:
-                    alert("You don't have enough Shorks to buy a Cursor Upgrade. You need at least " + formatInt(cursorUpgradePrice) + " Shorks.");
-                    break;
-                case 2:
-                    alert("You don't have enough Shorks to buy a Cursor Upgrade. You need at least " + formatIntAbbr(cursorUpgradePrice) + " Shorks.");
-                    break;
-                case 3:
-                    alert("You don't have enough Shorks to buy a Cursor Upgrade. You need at least " + cursorUpgradePrice.toExponential(2) + " Shorks.");
-                    break;
-                default:
-                    alert("You don't have enough Shorks to buy a Cursor Upgrade. You need at least " + cursorUpgradePrice.toLocaleString() + " Shorks.");
-                    break;
-            }
+            alert("You don't have enough Shorks to buy an Upgrade. You need at least " + formatNumberToCorrectFormat(cursorUpgradePrice) + " Shorks.");
         }
     }
-    function addShorksAuto(number) {
-        // add shorks based on the number of autoclickers multiplied by the production rate with a delay of 10ms between each addition
-        for (var i = 0; i < number; i++) {
-            setTimeout(addShorksClicks, i);
-        }
-    };
 
 
 
     function updateUI() {
         let sps = autoclickers * autoclickerProductionRate;
-        if (formattingMode == 0) {
-            shorkCounter.textContent = shorks.toLocaleString() + " Shorks";
-            Autoclicker1.title = "Hire a Feminine Person to Make Shorks\nCost: " + autoclickerPrice.toLocaleString() + " Shorks\n You have: x" + autoclickers.toLocaleString() + " Feminine People";
-            CursorUpgrade.title = "Increase Shorks per click\nCost: " + cursorUpgradePrice.toLocaleString() + " Shorks\n You have: x" + cursorUpgrades.toLocaleString() + " Upgrades";
-            ShorksPerSecond.textContent = "Shorks Per Second: " + sps.toLocaleString() + "/s";
-            settingsFormattingText.textContent = "Normal";
-        } else if (formattingMode == 1) {
-            shorkCounter.textContent = formatInt(shorks);
-            Autoclicker1.title = "Hire a Feminine Person to Make Shorks\nCost: " + formatInt(autoclickerPrice) + " Shorks\n You have: x" + formatInt(autoclickers) + " Feminine People";
-            CursorUpgrade.title = "Increase Shorks per click\nCost: " + formatInt(cursorUpgradePrice) + " Shorks\n You have: x" + formatInt(cursorUpgrades) + " Upgrades";
-            ShorksPerSecond.textContent = "Shorks Per Second: " + formatInt(sps) + "/s";
-            settingsFormattingText.textContent = "Standard Form";
-        } else if (formattingMode == 2) {
-            shorkCounter.textContent = formatIntAbbr(shorks);
-            Autoclicker1.title = "Hire a Feminine Person to Make Shorks\nCost: " + formatIntAbbr(autoclickerPrice) + " Shorks\n You have: x" + formatIntAbbr(autoclickers) + " Feminine People";
-            CursorUpgrade.title = "Increase Shorks per click\nCost: " + formatIntAbbr(cursorUpgradePrice) + " Shorks\n You have: x" + formatIntAbbr(cursorUpgrades) + " Upgrades";
-            ShorksPerSecond.textContent = "Shorks Per Second: " + formatIntAbbr(sps) + "/s";
-            settingsFormattingText.textContent = "Abbreviated Standard Form";
-        } else if (formattingMode == 3) {
-            shorkCounter.textContent = shorks.toExponential(2) + " Shorks";
-            Autoclicker1.title = "Hire a Feminine Person to Make Shorks\nCost: " + autoclickerPrice.toExponential(2) + " Shorks\n You have: x" + autoclickers.toExponential(2) + " Feminine People";
-            CursorUpgrade.title = "Increase Shorks per click\nCost: " + cursorUpgradePrice.toExponential(2) + " Shorks\n You have: x" + cursorUpgrades.toExponential(2) + " Upgrades";
-            ShorksPerSecond.textContent = "Shorks Per Second: " + sps.toExponential(2) + "/s";
-            settingsFormattingText.textContent = "Scientific";
-        }
-
-        // update the save timer
+        shorkCounter.textContent = formatNumberToCorrectFormat(shorks);
+        Autoclicker1.title = "Hire a Feminine Person to Make Shorks\nCost: " + formatNumberToCorrectFormat(autoclickerPrice) + " Shorks\n You have: x" + formatNumberToCorrectFormat(autoclickers) + " Feminine People";
+        CursorUpgrade.title = "Increase Shorks per click\nCost: " + formatNumberToCorrectFormat(cursorUpgradePrice) + " Shorks\n You have: x" + formatNumberToCorrectFormat(cursorUpgrades) + " Upgrades";
+        ShorksPerSecond.textContent = "Shorks Per Second: " + formatNumberToCorrectFormat(sps) + "/s";
+        settingsFormattingText.textContent = formattingModes[formattingMode];
         saveTimer.textContent = "Next save in " + (saveInterval - (Date.now() - lastSave) / 1000).toFixed(0) + " seconds.";
     }
 
@@ -217,6 +166,7 @@
         var illion = 1;
         while (temp >= 1000) {
             temp = temp / 1000;
+            temp = temp.toFixed(2);
             illion++;
         }
         return temp + " " + illions[illion - 1] + " Shorks";
@@ -227,9 +177,22 @@
         var illion = 1;
         while (temp >= 1000) {
             temp = temp / 1000;
+            temp = temp.toFixed(2);
             illion++;
         }
         return temp + illionsAbbr[illion - 1] + " Shorks";
+    }
+
+    function formatNumberToCorrectFormat(number) {
+        if (formattingMode == 0) {
+            return number.toLocaleString();
+        } else if (formattingMode == 1) {
+            return formatInt(number);
+        } else if (formattingMode == 2) {
+            return formatIntAbbr(number);
+        } else if (formattingMode == 3) {
+            return number.toExponential(2);
+        }
     }
 
     // a function that opens the about page by dimming the background and making the about panel div visible
@@ -256,7 +219,7 @@
         document.cookie = "cursorUpgrades=" + cursorUpgrades;
         document.cookie = "autoclickerPrice=" + autoclickerPrice;
         document.cookie = "cursorUpgradePrice=" + cursorUpgradePrice;
-        document.cookie = "autoclickerUpgradePurchased=" + autoclickerUpgradePurchased;
+        document.cookie = "autoclickerUpgrade1Purchased=" + autoclickerUpgrade1Purchased;
         document.cookie = "autoclickerProductionRate=" + autoclickerProductionRate;
         hook = false;
         lastSave = Date.now();
@@ -322,12 +285,12 @@
                     cursorUpgradePrice = isNaNCursorUpgradePrice ? 25 : parsedCursorUpgradePrice;
                     console.log(`cursorUpgradePrice ${cookie[0]} parsed ${cookie[1]} isNaN ${isNaNCursorUpgradePrice}`);
                     break;
-                case "autoclickerUpgradePurchased":
-                    // Update the autoclickerUpgradePurchased variable with the parsed value or false if not a boolean
-                    const parsedAutoclickerUpgradePurchased = cookie[1];
-                    const isNaNAutoclickerUpgradePurchased = parsedAutoclickerUpgradePurchased !== "true" && parsedAutoclickerUpgradePurchased !== "false";
-                    autoclickerUpgradePurchased = isNaNAutoclickerUpgradePurchased ? false : parsedAutoclickerUpgradePurchased;
-                    console.log(`autoclickerUpgradePurchased ${cookie[0]} parsed ${cookie[1]} invalid ${isNaNAutoclickerUpgradePurchased}`);
+                case "autoclickerUpgrade1Purchased":
+                    // Update the autoclickerUpgrade1Purchased variable with the parsed value or false if not a boolean
+                    const parsedautoclickerUpgrade1Purchased = cookie[1];
+                    const isNaNautoclickerUpgrade1Purchased = parsedautoclickerUpgrade1Purchased !== "true" && parsedautoclickerUpgrade1Purchased !== "false";
+                    autoclickerUpgrade1Purchased = isNaNautoclickerUpgrade1Purchased ? false : parsedautoclickerUpgrade1Purchased;
+                    console.log(`autoclickerUpgrade1Purchased ${cookie[0]} parsed ${cookie[1]} invalid ${isNaNautoclickerUpgrade1Purchased}`);
                     break;
                 case "autoclickerProductionRate":
                     // Update the autoclickerProductionRate variable with the parsed value or 0 if NaN
@@ -359,9 +322,9 @@
         if (!confirm("Are you sure you want to clear your save data? This action cannot be undone!!!!")) {
             return;
         }
-        // set all cookies to 0 other than the autoclicker price cookie which is set to 100 and the autoclickerUpgradePurchased cookie
-        var otherCookies = document.cookie.split(";").filter(c => !/^(autoclickerPrice|autoclickerUpgradePurchased)/.test(c)).map(c => c.split("=")[0] + "=0");
-        document.cookie = otherCookies.join(";") + "; autoclickerPrice=" + autoclickerPrice + "; autoclickerUpgradePurchased=" + autoclickerUpgradePurchased;
+        // set all cookies to 0 other than the autoclicker price cookie which is set to 100 and the autoclickerUpgrade1Purchased cookie
+        var otherCookies = document.cookie.split(";").filter(c => !/^(autoclickerPrice|autoclickerUpgrade1Purchased)/.test(c)).map(c => c.split("=")[0] + "=0");
+        document.cookie = otherCookies.join(";") + "; autoclickerPrice=" + autoclickerPrice + "; autoclickerUpgrade1Purchased=" + autoclickerUpgrade1Purchased;
         // refresh the page to clear progress and disable the refresh warning
         hook = false;
         location.reload();
@@ -435,20 +398,30 @@
         // if the div doesn't already exist, add it
         if (document.getElementById(upgradeID) == null) {
             if (upgradeID == "10xCursor") {
-                Upgrades.innerHTML += '<div id=' + upgradeID + ' title="' + upgradeName + '&NewLine;Cost: ' + upgradePrice + ' Shorks&NewLine;You have not Purchased This Upgrade" style="border: #b06a3b 5px solid; background-color: #b67f5a; width: min-content; height: 66px; cursor: pointer; display: inline-block; margin: 10px;"><img src="src/assets/textures/' + upgradeID + '.png" style="transform: translateY(-10%) scale(0.75)"></div>';
+                Upgrades.innerHTML += '<div id=' + upgradeID + ' title="' + upgradeName + '&NewLine;Cost: ' + formatNumberToCorrectFormat(upgradePrice) + ' Shorks&NewLine;You have not Purchased This Upgrade" style="border: #b06a3b 5px solid; background-color: #b67f5a; width: min-content; height: 66px; cursor: pointer; display: inline-block; margin: 10px;"><img src="src/assets/textures/' + upgradeID + '.png" style="transform: translateY(-10%) scale(0.75)"></div>';
             } else {
-                Upgrades.innerHTML += '<div id=' + upgradeID + ' title="' + upgradeName + '&NewLine;Cost: ' + upgradePrice + ' Shorks&NewLine;You have not Purchased This Upgrade" style="border: #b06a3b 5px solid; background-color: #b67f5a; width: min-content; height: min-content; cursor: pointer; display: inline-block; margin: 10px;"><img src="src/assets/textures/' + upgradeID + '.png"></div>';
+                Upgrades.innerHTML += '<div id=' + upgradeID + ' title="' + upgradeName + '&NewLine;Cost: ' + formatNumberToCorrectFormat(upgradePrice) + ' Shorks&NewLine;You have not Purchased This Upgrade" style="border: #b06a3b 5px solid; background-color: #b67f5a; width: min-content; height: min-content; cursor: pointer; display: inline-block; margin: 10px;"><img src="src/assets/textures/' + upgradeID + '.png"></div>';
             }
         }
             
     }
 
     // a function that purchases an upgrade if the user has enough shorks
-    function purchaseUpgrade() {
-        if (shorks >= autoclickerUpgradePrice) {
-            shorks -= autoclickerUpgradePrice;
-            autoclickerUpgradePurchased = true;
+    function purchaseAutoclickerUpgrade1() {
+        if (shorks >= autoclickerUpgrade1Price) {
+            shorks -= autoclickerUpgrade1Price;
+            autoclickerUpgrade1Purchased = true;
             autoclickerProductionRate++;
+        } else {
+            alert("Not enough Shorks!");
+        }
+    }
+
+    function purchaseAutoclickerUpgrade2() {
+        if (shorks >= autoclickerUpgrade2Price) {
+            shorks -= autoclickerUpgrade2Price;
+            autoclickerUpgrade2Purchased = true;
+            autoclickerProductionRate += 5;
         } else {
             alert("Not enough Shorks!");
         }
@@ -458,9 +431,7 @@
         if (shorks >= cursorUpgradeUpgradePrice) {
             shorks -= cursorUpgradeUpgradePrice;
             cursorUpgradeUpgradePurchased = true;
-            console.log(cursorUpgrades + " before 10x");
             cursorUpgrades = cursorUpgrades * 10;
-            console.log(cursorUpgrades + " after 10x");
         } else {
             alert("Not enough Shorks!");
         }
@@ -478,14 +449,21 @@
         // console.log("Tick: " + tick);
         if (tick % 20 == 0) {
             // add shorks automatically depending on the number of autoclickers and the production rate
-            addShorksAuto(autoclickers * autoclickerProductionRate);
+            addShorks(autoclickers * autoclickerProductionRate, true);
             // reset the tick counter
             tick = 0;
         }
-        const morepersecond = document.getElementById("morepersecond");
-        if (morepersecond != null) {
+        const twoxRate = document.getElementById("2xRate");
+        if (twoxRate != null) {
             // Add event listener to purchase the upgrade
-            morepersecond.addEventListener("click", purchaseUpgrade);
+            twoxRate.addEventListener("click", purchaseAutoclickerUpgrade1);
+            
+        }
+        const fivexRate = document.getElementById("5xRate");
+        if (fivexRate != null) {
+            // Add event listener to purchase the upgrade
+            fivexRate.addEventListener("click", purchaseAutoclickerUpgrade2);
+            
         }
         const tenxCursor = document.getElementById("10xCursor");
         if (tenxCursor != null) {
@@ -494,9 +472,13 @@
         }
 
         // if the user has purchased the upgrade for more feminine people speed update the title
-        // if morepersecond is undefined then the upgrade doesn't exist so don't update the title
-        if (morepersecond != null && autoclickerUpgradePurchased) {
-            morepersecond.title = "Purchased 2x Feminine Person Speed";
+        // if twoxRate is undefined then the upgrade doesn't exist so don't update the title
+        if (twoxRate != null && autoclickerUpgrade1Purchased) {
+            twoxRate.title = "Purchased 2x Feminine Person Speed";
+        }
+
+        if (fivexRate != null && autoclickerUpgrade2Purchased) {
+            fivexRate.title = "Purchased 5x Feminine Person Speed";
         }
 
         if (tenxCursor != null && cursorUpgradeUpgradePurchased) {
@@ -505,11 +487,16 @@
 
         // add the upgrade if 10 autoclickers have been purchased
         if (autoclickers >= 10) {
-            addUpgrades("morepersecond", "2x More Shorks from Feminine People", autoclickerUpgradePrice, autoclickerUpgradePurchased);
+            addUpgrades("2xRate", "2x More Shorks from Feminine People", formatNumberToCorrectFormat(autoclickerUpgrade1Price), autoclickerUpgrade1Purchased);
+        }
+
+        // add the upgrade if 100 autoclickers have been purchased
+        if (autoclickers >= 100) {
+            addUpgrades("5xRate", "5x More Shorks from Feminine People", formatNumberToCorrectFormat(autoclickerUpgrade2Price), autoclickerUpgrade2Purchased);
         }
 
         if (cursorUpgrades >= 10) {
-            addUpgrades("10xCursor", "10x More Shorks from Clicks", cursorUpgradeUpgradePrice, cursorUpgradeUpgradePurchased);
+            addUpgrades("10xCursor", "10x More Shorks from Clicks", formatNumberToCorrectFormat(cursorUpgradeUpgradePrice), cursorUpgradeUpgradePurchased);
         }
     }
 
