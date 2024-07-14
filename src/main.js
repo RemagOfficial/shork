@@ -220,6 +220,7 @@
         document.cookie = "autoclickerPrice=" + autoclickerPrice;
         document.cookie = "cursorUpgradePrice=" + cursorUpgradePrice;
         document.cookie = "autoclickerUpgrade1Purchased=" + autoclickerUpgrade1Purchased;
+        document.cookie = "autoclickerUpgrade2Purchased=" + autoclickerUpgrade2Purchased;
         document.cookie = "autoclickerProductionRate=" + autoclickerProductionRate;
         hook = false;
         lastSave = Date.now();
@@ -292,6 +293,13 @@
                     autoclickerUpgrade1Purchased = isNaNautoclickerUpgrade1Purchased ? false : parsedautoclickerUpgrade1Purchased;
                     console.log(`autoclickerUpgrade1Purchased ${cookie[0]} parsed ${cookie[1]} invalid ${isNaNautoclickerUpgrade1Purchased}`);
                     break;
+                case "autoclickerUpgrade2Purchased":
+                    // Update the autoclickerUpgrade2Purchased variable with the parsed value or false if not a boolean
+                    const parsedautoclickerUpgrade2Purchased = cookie[1];
+                    const isNaNautoclickerUpgrade2Purchased = parsedautoclickerUpgrade2Purchased !== "true" && parsedautoclickerUpgrade2Purchased !== "false";
+                    autoclickerUpgrade2Purchased = isNaNautoclickerUpgrade2Purchased ? false : parsedautoclickerUpgrade2Purchased;
+                    console.log(`autoclickerUpgrade2Purchased ${cookie[0]} parsed ${cookie[1]} invalid ${isNaNautoclickerUpgrade2Purchased}`);
+                    break;
                 case "autoclickerProductionRate":
                     // Update the autoclickerProductionRate variable with the parsed value or 0 if NaN
                     const parsedAutoclickerProductionRate = parseInt(cookie[1]);
@@ -323,7 +331,7 @@
             return;
         }
         // set all cookies to 0 other than the autoclicker price cookie which is set to 100 and the autoclickerUpgrade1Purchased cookie
-        var otherCookies = document.cookie.split(";").filter(c => !/^(autoclickerPrice|autoclickerUpgrade1Purchased)/.test(c)).map(c => c.split("=")[0] + "=0");
+        var otherCookies = document.cookie.split(";").filter(c => !/^(autoclickerPrice|cursorUpgradePrice|autoclickerUpgrade1Purchased|autoclickerUpgrade2Purchased|cursorUpgradeUpgradePurchased)/.test(c)).map(c => c.split("=")[0] + "=0");
         document.cookie = otherCookies.join(";") + "; autoclickerPrice=" + autoclickerPrice + "; autoclickerUpgrade1Purchased=" + autoclickerUpgrade1Purchased;
         // refresh the page to clear progress and disable the refresh warning
         hook = false;
