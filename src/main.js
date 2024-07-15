@@ -1,5 +1,6 @@
 (function() {
     let shorks = 0;
+    let shorksLifetime = 0;
     let autoclickers = 0;
     let cursorUpgrades = 0;
     let autoclickerUpgrade1Purchased = false;
@@ -118,8 +119,10 @@
     function addShorks(number, auto) {
         if (auto) {
             shorks += number;
+            shorksLifetime += number;
         } else {
             shorks += number + cursorUpgrades;
+            shorksLifetime += number + cursorUpgrades;
         }
 
     }
@@ -167,7 +170,7 @@
         const hours = Math.floor(seconds / 3600) % 24;
         const minutes = Math.floor(seconds / 60) % 60;
         const displaySeconds = seconds % 60;
-        settingsStatsPlaytime.textContent = `Playtime: ${days.toString().padStart(2, '0')}:${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${displaySeconds.toString().padStart(2, '0')}`;
+        settingsStatsPlaytime.innerHTML = `Playtime: ${days.toString().padStart(2, '0')}:${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${displaySeconds.toString().padStart(2, '0')} (DD:HH:MM:SS)<br><br>Lifetime Shorks: ${formatNumberToCorrectFormat(shorksLifetime)}`;
     }
 
     function formatInt(number) {
@@ -328,6 +331,10 @@
                     // Do nothing for unknown cookie names
                     console.log(`Unknown cookie ${cookie[0]}`);
                     break;
+            }
+
+            if (parsedShorks > shorksLifetime) {
+                shorksLifetime = isNaNShorks ? 0 : parsedShorks;
             }
         }
 
