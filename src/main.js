@@ -332,10 +332,6 @@
                     console.log(`Unknown cookie ${cookie[0]}`);
                     break;
             }
-
-            if (parsedShorks > shorksLifetime) {
-                shorksLifetime = isNaNShorks ? 0 : parsedShorks;
-            }
         }
 
         // Update the user interface to reflect the loaded values
@@ -490,6 +486,9 @@
             addShorks(autoclickers * autoclickerProductionRate, true);
             // reset the tick counter
             tick = 0;
+        }
+        if (shorks > shorksLifetime) {
+            shorksLifetime = shorks;
         }
         const twoxRate = document.getElementById("2xRate");
         if (twoxRate != null) {
