@@ -226,6 +226,7 @@
     // a function that saves the shork counter and formatting mode to a browser cookie when the save button is clicked
     function saveGame() {
         document.cookie = "shorkCounter=" + shorks;
+        document.cookie = "shorkCounterLifetime=" + shorksLifetime;
         document.cookie = "formattingMode=" + formattingMode;
         document.cookie = "autoclickers=" + autoclickers;
         document.cookie = "cursorUpgrades=" + cursorUpgrades;
@@ -263,6 +264,13 @@
                     const isNaNShorks = isNaN(parsedShorks);
                     shorks = isNaNShorks ? 0 : parsedShorks;
                     console.log(`shorkCounter ${cookie[0]} parsed ${cookie[1]} isNaN ${isNaNShorks}`);
+                    break;
+                case "shorkCounterLifetime":
+                    // Update the shorksLifetime variable with the parsed value or 0 if NaN
+                    const parsedShorksLifetime = parseInt(cookie[1]);
+                    const isNaNShorksLifetime = isNaN(parsedShorksLifetime);
+                    shorksLifetime = isNaNShorksLifetime ? 0 : parsedShorksLifetime;
+                    console.log(`shorkCounterLifetime ${cookie[0]} parsed ${cookie[1]} isNaN ${isNaNShorksLifetime}`);
                     break;
                 case "formattingMode":
                     // Update the formattingMode variable with the parsed value or 0 if NaN
